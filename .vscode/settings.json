@@ -1,0 +1,18 @@
+// TODO: update here
+{
+  "prettier.configPath": ".prettierrc.yml",
+  "launch": {
+    "configurations": [],
+    "compounds": []
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true
+    // "**/node_modules": true,
+  },
+  // "editor.rulers": [80],
+  "editor.formatOnSave": true,
+  "workbench.colorCustomizations": {
+    "editorRuler.foreground": "#81abdb"
+  }
+}
