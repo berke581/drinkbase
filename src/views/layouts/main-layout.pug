@@ -1,0 +1,26 @@
+block variables
+
+include /partials/header
+
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    link(rel="shortcut icon", href="/favicon.ico")
+    link(rel='stylesheet', href='/stylesheets/style.css', type='text/css')
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(name="theme-color", content="#000000")
+    title #{title} | DrinkBase
+
+    script(src="https://code.jquery.com/jquery-3.6.1.min.js",integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=",crossorigin="anonymous")
+    script(type="text/javascript",src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js",async)
+
+    script(type='text/javascript',async).
+      $(document).ready(function(){
+        $("a[href*='" + location.pathname + "']").addClass("btn--current-page");
+      });
+  body
+    div#root
+      +header(222)
+      div.content-area
+        block layout-content

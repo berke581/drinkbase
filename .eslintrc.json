@@ -1,7 +1,8 @@
 {
   "env": {
     "es2021": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
@@ -26,7 +27,8 @@
       }
     ],
     "import/extensions": "off",
-    "import/no-commonjs": [2, { "allowRequire": false }] // TODO: decide if necessary, maybe there is need to use both
+    "import/no-named-as-default-member": "off"
+    // "import/no-commonjs": [2, { "allowRequire": false }] // TODO: decide if necessary, maybe there is need to use both
   },
   "settings": {
     "import/parsers": {

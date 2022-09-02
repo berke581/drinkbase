@@ -1,0 +1,22 @@
+.card {
+  width: 400px;
+  min-height: 300px;
+  max-height: 800px;
+  overflow: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: $clr-accent;
+  color: white;
+
+  &__content {
+    padding: 0.25rem;
+  }
+
+  &__header {
+    background-color: $clr-secondary;
+    font-weight: bold;
+    padding: 0.25rem;
+    height: 50px;
+    display: flex;
+    align-items: center;
+  }
+}

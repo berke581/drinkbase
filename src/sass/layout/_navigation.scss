@@ -1,0 +1,10 @@
+.navbar {
+  &.navbar__item {
+    padding: 0.2rem;
+    margin: 0.2rem;
+
+    &:not(:last-child) {
+      border-right: 2px solid white;
+    }
+  }
+}

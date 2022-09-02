@@ -1,0 +1,15 @@
+@import 'sass-utils/variables';
+
+@import 'base/reset';
+@import 'base/typography';
+
+@import 'components/buttons';
+@import 'components/search';
+@import 'components/card';
+
+@import 'layout/header';
+@import 'layout/main-layout';
+
+body {
+  background-color: $clr-background;
+}

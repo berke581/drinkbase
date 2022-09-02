@@ -1,0 +1,10 @@
+mixin header(menuOptions)
+  div.header
+    div.header__icon
+      a(href="/")
+        svg(data-src="/images/drinkbase.svg",fill="white",width="120px",height="60px",data-cache="disabled")
+    input(type='search', class='search')
+    div.header__menu-section
+      a.btn.btn--nav(href="/") Browse
+      a.btn.btn--nav Register
+      a.btn.btn--nav Login

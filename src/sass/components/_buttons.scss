@@ -1,0 +1,30 @@
+.btn {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin: 0 8px 0px 0px;
+  }
+
+  &:hover {
+    background-color: $clr-secondary;
+  }
+
+  &--nav {
+    height: 100%;
+    min-width: 120px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  &--current-page {
+    border-color: $clr-accent;
+  }
+}
