@@ -7,4 +7,18 @@
   border-radius: 8px;
   border-style: solid;
   padding-left: 35px;
+
+  &::placeholder {
+    color: $clr-placeholder;
+  }
+
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    cursor: pointer;
+    height: 0.6rem;
+    width: 0.6rem;
+    background-image: url('/images/close.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
