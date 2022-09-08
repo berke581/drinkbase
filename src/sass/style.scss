@@ -2,14 +2,19 @@
 
 @import 'base/reset';
 @import 'base/typography';
+@import 'base/scrollbars';
 
 @import 'components/buttons';
-@import 'components/search';
+@import 'components/input';
 @import 'components/card';
 
 @import 'layout/header';
 @import 'layout/main-layout';
 
+@import 'pages/404';
+@import 'pages/register';
+
 body {
+  color: white;
   background-color: $clr-background;
 }

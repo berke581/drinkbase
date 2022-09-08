@@ -4,6 +4,8 @@ import session from 'express-session'
 import connectMongoDBSession from 'connect-mongodb-session'
 import mongoose from 'mongoose'
 
+import router from './routes'
+
 const MONGO_URI = process.env.MONGO_URI
 
 const MongoDBSession = connectMongoDBSession(session)
@@ -38,12 +40,6 @@ app.use(urlencoded({ extended: true }))
 //   }),
 // )
 
-app.get('/', (req, res) => {
-  res.render('index')
-})
-
-app.get('*', (req, res) => {
-  res.render('404')
-})
+app.use('/', router)
 
 export default app

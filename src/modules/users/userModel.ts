@@ -1,7 +1,9 @@
-import mongoose from 'mongoose'
-const Schema = mongoose.Schema
+// TODO: maybe use typegoose: https://stackoverflow.com/a/61154023
 
-const userSchema = new Schema({
+import { model, Schema } from 'mongoose'
+import { IUser } from './IUser'
+
+export const userSchema = new Schema<IUser>({
   username: {
     type: String,
     required: true,
@@ -20,4 +22,4 @@ const userSchema = new Schema({
   },
 })
 
-export default mongoose.model('User', userSchema)
+export default model<IUser>('User', userSchema)

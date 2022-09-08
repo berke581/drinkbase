@@ -17,10 +17,10 @@ html
 
     script(type='text/javascript',async).
       $(document).ready(function(){
-        $("a[href*='" + location.pathname + "']").addClass("btn--current-page");
+        $("a[href='" + location.pathname + "']").addClass("btn--current-page");
       });
   body
     div#root
-      +header(222)
+      +header(false)
       div.content-area
         block layout-content

@@ -1,0 +1,24 @@
+extends layouts/main-layout
+
+block variables
+  - var title = 'Register';
+
+block layout-content
+  div.register-container
+    header.register-container__text Register
+    form.register-container__form(action="/user/register",method="post")
+        label(for="username") Username
+        input.input(type="text",placeholder="Username",name="username",id="username",required)
+        label(for="email") E-mail
+        input.input(type="text",placeholder="E-mail",name="email",id="email",required)
+        label(for="password") Password
+        input.input(type="password",placeholder="Password",name="password",id="password",required)
+        label(for="repeat-password") Repeat Password
+        input.input(type="password",placeholder="Repeat Password",name="repeat_password",id="repeat-password",required)
+        input.btn(type="submit", value="Register")
+    if pageErrors
+      div.register-container__error-container
+        ul
+          each val in pageErrors
+            li.
+             - #{val.message}
