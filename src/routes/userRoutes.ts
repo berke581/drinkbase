@@ -7,7 +7,8 @@ import { UsersRepository } from '@src/modules/users/UsersRepository'
 import { UsersService } from '@src/modules/users/UsersService'
 import { UsersController } from '@src/modules/users/UsersController'
 import { AuthService } from '@src/modules/auth/AuthService'
-import { protectRoute } from '@src/middlewares/protectRoute'
+import { authGuard } from '@src/middlewares/authGuard'
+import { loggedInAuthGuard } from '@src/middlewares/loggedInAuthGuard'
 
 const usersController = new UsersController(
   new UsersService(new UsersRepository(userModel), new AuthService()),
@@ -16,14 +17,14 @@ const usersController = new UsersController(
 const router = express.Router()
 
 // GET
-router.get('/register', usersController.registerView.bind(usersController))
-router.get('/login', usersController.loginView.bind(usersController))
+router.get('/register', loggedInAuthGuard, usersController.registerView.bind(usersController))
+router.get('/login', loggedInAuthGuard, usersController.loginView.bind(usersController))
 // protected routes
-router.get('/profile', protectRoute, usersController.profileView.bind(usersController))
+router.get('/profile', authGuard, usersController.profileView.bind(usersController))
 
 // POST
-router.post('/register', usersController.registerUser.bind(usersController))
-router.post('/login', usersController.loginUser.bind(usersController))
+router.post('/register', loggedInAuthGuard, usersController.registerUser.bind(usersController))
+router.post('/login', loggedInAuthGuard, usersController.loginUser.bind(usersController))
 router.post('/logout', usersController.logoutUser.bind(usersController))
 
 export default router

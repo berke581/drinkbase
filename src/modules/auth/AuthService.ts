@@ -8,7 +8,7 @@ export class AuthService {
     return await bcrypt.hash(plainTextPassword, salt)
   }
 
-  public async validatePassword(password: string, hashedPassword: string) {
+  public async comparePasswords(password: string, hashedPassword: string) {
     return await bcrypt.compare(password, hashedPassword)
   }
 }

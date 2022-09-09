@@ -11,6 +11,11 @@ export class UsersService {
     this._authService = authService
   }
 
+  async getUserInfo(username: string): Promise<IUser | null> {
+    const userInfo = await this._usersRepository.findByUsername(username)
+    return userInfo
+  }
+
   async checkIfUsernameExists(username: string): Promise<IUser | null> {
     const result = await this._usersRepository.findByUsername(username)
     return result
@@ -29,8 +34,8 @@ export class UsersService {
     this._usersRepository.create({ ...rest, password: hashedPassword })
   }
 
-  async loginUser(password: string, hashedPassword: string) {
-    const doPasswordsMatch = await this._authService.validatePassword(password, hashedPassword)
+  async validatePassword(password: string, hashedPassword: string) {
+    const doPasswordsMatch = await this._authService.comparePasswords(password, hashedPassword)
     return doPasswordsMatch
   }
 }

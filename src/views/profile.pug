@@ -5,3 +5,9 @@ block variables
 
 block layout-content
   div Logged In User's Profile Page Here
+    div
+      if (userInfo)
+        ul
+          li #{userInfo.username}
+        ul
+          li #{userInfo.email}

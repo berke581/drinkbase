@@ -13,8 +13,11 @@ export class UsersController {
     res.render('login')
   }
 
-  profileView(_req: Request, res: Response) {
-    res.render('profile')
+  async profileView(_req: Request, res: Response) {
+    const { username } = _req.session.user || {}
+    const userInfo = username ? await this._usersService.getUserInfo(username) : null
+
+    res.render('profile', { userInfo })
   }
 
   async registerUser(req: Request, res: Response) {
@@ -60,7 +63,7 @@ export class UsersController {
     }
 
     const hashedPassword = userFound.password
-    const isLoginSuccessful = await this._usersService.loginUser(password, hashedPassword)
+    const isLoginSuccessful = await this._usersService.validatePassword(password, hashedPassword)
 
     if (!isLoginSuccessful) {
       return res
