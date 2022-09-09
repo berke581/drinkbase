@@ -1,4 +1,4 @@
-mixin header(isAuth)
+mixin header
   div.header
     div.header__icon
       a(href="/")
@@ -11,4 +11,6 @@ mixin header(isAuth)
       if !isAuth
         a.btn.btn--nav(href="/user/login") Login
       if isAuth
-        a.btn.btn--nav(href="/profile") Profile
+        a.btn.btn--nav(href="/user/profile") Profile
+      if isAuth
+        a.btn.btn--nav#logout-link(href="/user/logout") Logout

@@ -1,41 +1,36 @@
-import bcrypt from 'bcrypt'
 import { UsersRepository } from './UsersRepository'
+import { AuthService } from '@src/modules/auth/AuthService'
 import { IUser } from './IUser'
 
 export class UsersService {
-  private readonly _repository: UsersRepository
+  private readonly _usersRepository: UsersRepository
+  private readonly _authService: AuthService
 
-  constructor(repository: UsersRepository) {
-    this._repository = repository
+  constructor(usersRepository: UsersRepository, authService: AuthService) {
+    this._usersRepository = usersRepository
+    this._authService = authService
   }
 
-  async checkIfUserExists(username: string): Promise<boolean> {
-    const result = await this._repository.findByUsername(username)
-    return result !== null
+  async checkIfUsernameExists(username: string): Promise<IUser | null> {
+    const result = await this._usersRepository.findByUsername(username)
+    return result
   }
 
   async checkIfEmailExists(email: string): Promise<boolean> {
-    const result = await this._repository.findByEmail(email)
+    const result = await this._usersRepository.findByEmail(email)
     return result !== null
   }
 
   async registerUser(data: IUser) {
     const { password, ...rest } = data
 
-    const hashedPassword = await this.hashPassword(password)
+    const hashedPassword = await this._authService.hashPassword(password)
 
-    this._repository.create({ ...rest, password: hashedPassword })
+    this._usersRepository.create({ ...rest, password: hashedPassword })
   }
 
-  async loginUser(username: string, password: string) {
-    // TODO: login here
-  }
-
-  // TODO: revise line below
-  private async hashPassword(plainTextPassword: string) {
-    const saltRounds = 10
-
-    const salt = await bcrypt.genSalt(saltRounds)
-    return await bcrypt.hash(plainTextPassword, salt)
+  async loginUser(password: string, hashedPassword: string) {
+    const doPasswordsMatch = await this._authService.validatePassword(password, hashedPassword)
+    return doPasswordsMatch
   }
 }

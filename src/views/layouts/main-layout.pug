@@ -19,8 +19,20 @@ html
       $(document).ready(function(){
         $("a[href='" + location.pathname + "']").addClass("btn--current-page");
       });
+    
+    script(type='text/javascript', async).
+      $(function() {
+        $("#logout-link").on("click",function(e) {
+          e.preventDefault(); // cancel the link itself
+          $.post(this.href).done(
+            () => {
+              $(window)[0].location.replace('/');
+            }
+          );
+        });
+      });
   body
     div#root
-      +header(false)
+      +header
       div.content-area
         block layout-content

@@ -1,21 +1,17 @@
 extends layouts/main-layout
 
 block variables
-  - var title = 'Register';
+  - var title = 'Login';
 
 block layout-content
   div.form-container
-    header.form-container__text Register
-    form.form-container__form(action="/user/register",method="post")
+    header.form-container__text Login
+    form.form-container__form(action="/user/login",method="post")
         label(for="username") Username
         input.input(type="text",placeholder="Username",name="username",id="username",required)
-        label(for="email") E-mail
-        input.input(type="text",placeholder="E-mail",name="email",id="email",required)
         label(for="password") Password
         input.input(type="password",placeholder="Password",name="password",id="password",required)
-        label(for="repeat-password") Repeat Password
-        input.input(type="password",placeholder="Repeat Password",name="repeat_password",id="repeat-password",required)
-        input.btn(type="submit", value="Register")
+        input.btn(type="submit", value="Login")
     if pageErrors
       div.form-container__error-container
         ul

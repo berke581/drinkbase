@@ -9,6 +9,14 @@ export class UsersController {
     res.render('register')
   }
 
+  loginView(_req: Request, res: Response) {
+    res.render('login')
+  }
+
+  profileView(_req: Request, res: Response) {
+    res.render('profile')
+  }
+
   async registerUser(req: Request, res: Response) {
     const validation = userSchema.validate(req.body, { abortEarly: false })
 
@@ -19,7 +27,7 @@ export class UsersController {
         .render('register', { pageErrors: validation.error?.details })
     }
 
-    const isUsernameTaken = await this._usersService.checkIfUserExists(req.body.username)
+    const isUsernameTaken = await this._usersService.checkIfUsernameExists(req.body.username)
     if (isUsernameTaken) {
       return res
         .setHeader('X-Status-Reason', 'Username not available')
@@ -36,6 +44,43 @@ export class UsersController {
     }
 
     this._usersService.registerUser(req.body)
+    return res.redirect('/user/login')
+  }
+
+  async loginUser(req: Request, res: Response) {
+    const { username, password } = req.body
+
+    const userFound = await this._usersService.checkIfUsernameExists(username)
+
+    if (!userFound) {
+      return res
+        .setHeader('X-Status-Reason', 'User not found')
+        .status(401)
+        .render('login', { pageErrors: [{ message: 'User not found' }] })
+    }
+
+    const hashedPassword = userFound.password
+    const isLoginSuccessful = await this._usersService.loginUser(password, hashedPassword)
+
+    if (!isLoginSuccessful) {
+      return res
+        .setHeader('X-Status-Reason', 'Login failed')
+        .status(401)
+        .render('login', { pageErrors: [{ message: 'Login failed' }] })
+    }
+
+    // login is successful
+    req.session.user = { username }
+    return res.redirect('/')
+  }
+
+  logoutUser(req: Request, res: Response) {
+    req.session.destroy((err) => {
+      if (err) {
+        throw err
+      }
+    })
+    // https://stackoverflow.com/questions/27202075/expressjs-res-redirect-not-working-as-expected
     return res.redirect('/')
   }
 }
