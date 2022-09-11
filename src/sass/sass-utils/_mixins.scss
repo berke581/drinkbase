@@ -1,0 +1,17 @@
+@mixin box-shadow($x, $y, $blur, $spread, $color, $inset: null) {
+  -webkit-box-shadow: $x $y $blur $spread $color $inset;
+  -moz-box-shadow: $x $y $blur $spread $color $inset;
+  -ms-box-shadow: $x $y $blur $spread $color $inset;
+  box-shadow: $x $y $blur $spread $color $inset;
+}
+
+@mixin box-shadows($shadow...) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  -ms-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
+@mixin box-shadow-primary {
+  @include box-shadows(0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19));
+}

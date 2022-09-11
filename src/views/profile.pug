@@ -1,13 +1,24 @@
 extends layouts/main-layout
 
+include /partials/profile-item
+
 block variables
   - var title = 'My Profile';
 
+append scripts
+  script(type="text/javascript",src="/javascripts/formatCreationDate.js",defer)
+  script(type="text/javascript",src="/javascripts/deleteUser.js",defer)
+
 block layout-content
-  div Logged In User's Profile Page Here
-    div
+  div.profile-area
+    header.profile-area__title My Account
+    div.profile-area__details-container
       if (userInfo)
         ul
-          li #{userInfo.username}
-        ul
-          li #{userInfo.email}
+          +profileItem('Username', userInfo._username)
+          +profileItem('E-mail', userInfo._email)
+          +profileItem('Created At', userInfo._createdAt, 'created_at')
+      else
+        div Error fetching user info.
+    div.profile-area__delete-account-section
+      button.btn.btn--delete#delete-user Delete My Account

@@ -28,7 +28,6 @@
     ],
     "import/extensions": "off",
     "import/no-named-as-default-member": "off"
-    // "import/no-commonjs": [2, { "allowRequire": false }] // TODO: decide if necessary, maybe there is need to use both
   },
   "settings": {
     "import/parsers": {
@@ -40,5 +39,6 @@
         "project": "./tsconfig.json"
       }
     }
-  }
+  },
+  "ignorePatterns": ["public/javascripts/*.js"]
 }

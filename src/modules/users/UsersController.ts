@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { UsersService } from './UsersService'
 import { userSchema } from '@src/schemas'
 
+// TODO: maybe use express-flash or connect-flash etc.
 export class UsersController {
   constructor(private readonly _usersService: UsersService) {}
 
@@ -15,9 +16,14 @@ export class UsersController {
 
   async profileView(_req: Request, res: Response) {
     const { username } = _req.session.user || {}
-    const userInfo = username ? await this._usersService.getUserInfo(username) : null
 
-    res.render('profile', { userInfo })
+    if (!username) {
+      return res.redirect('/')
+    }
+
+    const userInfo = await this._usersService.getUserInfo(username)
+
+    return res.render('profile', { userInfo })
   }
 
   async registerUser(req: Request, res: Response) {
@@ -73,7 +79,7 @@ export class UsersController {
     }
 
     // login is successful
-    req.session.user = { username }
+    req.session.user = { userId: userFound._id, username }
     return res.redirect('/')
   }
 
@@ -84,6 +90,26 @@ export class UsersController {
       }
     })
     // https://stackoverflow.com/questions/27202075/expressjs-res-redirect-not-working-as-expected
+    return res.redirect('/')
+  }
+
+  async deleteUser(req: Request, res: Response) {
+    const { userId } = req.session.user || {}
+
+    if (!userId) {
+      return res.redirect('/')
+    }
+
+    const isDeletionSuccessful = await this._usersService.deleteUser(userId)
+    if (!isDeletionSuccessful) {
+      return res.render('profile', { todo_error: 'TODO_ERROR' })
+    }
+
+    req.session.destroy((err) => {
+      if (err) {
+        throw err
+      }
+    })
     return res.redirect('/')
   }
 }

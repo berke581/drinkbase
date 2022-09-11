@@ -1,6 +1,6 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    // TODO: add PORT here
+    PORT: number
     MONGO_URI: string
     SESSION_SECRET: string
   }

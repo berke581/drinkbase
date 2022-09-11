@@ -1,5 +1,21 @@
 .page-not-found {
   color: white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  &__text-container {
+    background-color: $clr-accent;
+    border-radius: 8px;
+    @include box-shadow-primary;
+    font-size: large;
+    font-weight: bolder;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
 }

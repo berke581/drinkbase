@@ -25,6 +25,8 @@ router.get('/profile', authGuard, usersController.profileView.bind(usersControll
 // POST
 router.post('/register', loggedInAuthGuard, usersController.registerUser.bind(usersController))
 router.post('/login', loggedInAuthGuard, usersController.loginUser.bind(usersController))
-router.post('/logout', usersController.logoutUser.bind(usersController))
+// protected routes
+router.post('/logout', authGuard, usersController.logoutUser.bind(usersController))
+router.post('/delete', authGuard, usersController.deleteUser.bind(usersController))
 
 export default router

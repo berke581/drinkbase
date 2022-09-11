@@ -5,6 +5,7 @@ import { ObjectId } from 'mongoose'
 declare module 'express-session' {
   interface SessionData {
     user: {
+      userId: ObjectId
       username: string
     }
   }
