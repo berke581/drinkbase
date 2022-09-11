@@ -5,3 +5,8 @@ $clr-accent: #e94560;
 
 $clr-error: #eed202;
 $clr-placeholder: #f7bec7;
+
+// Font Awesome configuration
+// https://stackoverflow.com/questions/4184686/how-do-i-set-a-css-url-to-an-absolute-location
+// https://stackoverflow.com/questions/23912827/change-the-font-path-when-using-font-awesome
+$fa-font-path: '/webfonts';

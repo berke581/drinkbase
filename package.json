@@ -5,12 +5,13 @@
   "scripts": {
     "clean:dist": "shx rm -rf dist",
     "clean:stylesheets": "shx rm -rf public/stylesheets/",
-    "copy-files": "shx cp -r ./{.env,package.json} ./public/ ./dist",
+    "copy-files": "shx cp -r ./src/views/ ./{.env,package.json} ./public/ ./dist",
+    "resolve-alias": "tsc-alias",
     "prebuild": "run-s clean:*",
     "build:css": "sass --style=compressed --no-source-map --load-path=src/sass/ ./src/sass/style.scss ./public/stylesheets/style.css",
     "build:ts": "tsc -p tsconfig.prod.json",
     "build": "run-s build:*",
-    "postbuild": "yarn copy-files",
+    "postbuild": "run-s copy-files resolve-alias",
     "sass-watch": "sass --watch --style=compressed --load-path=src/sass/ ./src/sass/style.scss ./public/stylesheets/style.css",
     "start:dev": "concurrently \"yarn nodemon\" \"yarn sass-watch\"",
     "start:ui": "concurrently --kill-others \"yarn start:dev\" \"browser-sync start --config bs-config.js\"",
@@ -44,6 +45,7 @@
     "shx": "^0.3.4",
     "ts-jest": "^28.0.8",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.7.0",
     "tsconfig-paths": "^4.1.0",
     "typescript": "*"
   },
