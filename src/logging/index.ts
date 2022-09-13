@@ -1,5 +1,5 @@
 import winston, { format } from 'winston'
-const { combine, timestamp, colorize, printf } = format
+const { combine, timestamp, colorize, uncolorize, printf } = format
 
 function isDevelopment() {
   const env = process.env.NODE_ENV
@@ -40,8 +40,12 @@ const transports = [
   new winston.transports.File({
     filename: 'logs/error.log',
     level: 'error',
+    format: uncolorize(),
   }),
-  new winston.transports.File({ filename: 'logs/combined.log' }),
+  new winston.transports.File({
+    filename: 'logs/combined.log',
+    format: uncolorize(),
+  }),
 ]
 
 const logger = winston.createLogger({
