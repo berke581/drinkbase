@@ -1,5 +1,7 @@
 extends layouts/main-layout
 
+include /partials/page-info
+
 block variables
   - var title = 'Login';
 
@@ -12,9 +14,4 @@ block layout-content
         label(for="password") Password
         input.input(type="password",placeholder="Password",name="password",id="password",required)
         input.btn(type="submit", value="Login")
-    if pageErrors
-      div.form-container__error-container
-        ul
-          each val in pageErrors
-            li.
-             - #{val.message}
+    +pageInfo(formInfo)

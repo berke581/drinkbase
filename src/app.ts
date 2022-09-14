@@ -1,5 +1,6 @@
 import path from 'path'
 import express, { urlencoded } from 'express'
+import flash from 'connect-flash'
 import { loadDBConfiguration } from './loaders/db'
 import sessionMiddleware from './middlewares/session'
 import morganMiddleware from './middlewares/morgan'
@@ -20,6 +21,7 @@ app.use(morganMiddleware)
 app.use(express.static('public'))
 app.use(urlencoded({ extended: true }))
 app.use(setIsAuth)
+app.use(flash())
 
 app.use('/', router)
 

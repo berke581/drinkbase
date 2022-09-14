@@ -1,5 +1,7 @@
 extends layouts/main-layout
 
+include /partials/page-info
+
 block variables
   - var title = 'Register';
 
@@ -16,9 +18,4 @@ block layout-content
         label(for="repeat-password") Repeat Password
         input.input(type="password",placeholder="Repeat Password",name="repeat_password",id="repeat-password",required)
         input.btn(type="submit", value="Register")
-    if pageErrors
-      div.form-container__error-container
-        ul
-          each val in pageErrors
-            li.
-             - #{val.message}
+    +pageInfo(formInfo)

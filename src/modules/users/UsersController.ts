@@ -1,28 +1,28 @@
 import { Request, Response, NextFunction } from 'express'
 import { UsersService } from './UsersService'
 import { userSchema } from '@src/schemas'
+import { formatJoiValidationErrors } from '@src/utils/format'
 
-// TODO: maybe use express-flash or connect-flash etc.
+// TODO: set headers and proper status codes
 export class UsersController {
   constructor(private readonly _usersService: UsersService) {}
 
-  registerView(_req: Request, res: Response) {
-    res.render('register')
+  registerView(req: Request, res: Response) {
+    res.render('register', { formInfo: req.flash('registerValidationErrors') })
   }
 
-  loginView(_req: Request, res: Response) {
-    res.render('login')
+  loginView(req: Request, res: Response) {
+    res.render('login', { formInfo: req.flash('loginValidationErrors') })
   }
 
-  async profileView(_req: Request, res: Response) {
-    const { username } = _req.session.user || {}
+  async profileView(req: Request, res: Response) {
+    const { username } = req.session.user || {}
 
     if (!username) {
       return res.redirect('/')
     }
 
     const userInfo = await this._usersService.getUserInfo(username)
-
     return res.render('profile', { userInfo })
   }
 
@@ -30,30 +30,24 @@ export class UsersController {
     const validation = userSchema.validate(req.body, { abortEarly: false })
 
     if (validation.error) {
-      return res
-        .setHeader('X-Status-Reason', 'Validation failed')
-        .status(400)
-        .render('register', { pageErrors: validation.error?.details })
+      req.flash('registerValidationErrors', formatJoiValidationErrors(validation.error))
+      return res.redirect('register')
     }
 
     const isUsernameTaken = await this._usersService.checkIfUsernameExists(req.body.username)
     if (isUsernameTaken) {
-      return res
-        .setHeader('X-Status-Reason', 'Username not available')
-        .status(409)
-        .render('register', { pageErrors: [{ message: 'Username not available' }] })
+      req.flash('registerValidationErrors', 'Username not available')
+      return res.redirect('register')
     }
 
     const isEmailTaken = await this._usersService.checkIfEmailExists(req.body.email)
     if (isEmailTaken) {
-      return res
-        .setHeader('X-Status-Reason', 'Email not available')
-        .status(409)
-        .render('register', { pageErrors: [{ message: 'Email not available' }] })
+      req.flash('registerValidationErrors', 'E-mail not available')
+      return res.redirect('register')
     }
 
     this._usersService.registerUser(req.body)
-    return res.redirect('/user/login')
+    return res.redirect('login')
   }
 
   async loginUser(req: Request, res: Response) {
@@ -62,20 +56,16 @@ export class UsersController {
     const userFound = await this._usersService.checkIfUsernameExists(username)
 
     if (!userFound) {
-      return res
-        .setHeader('X-Status-Reason', 'User not found')
-        .status(401)
-        .render('login', { pageErrors: [{ message: 'User not found' }] })
+      req.flash('loginValidationErrors', 'User not found')
+      return res.redirect('login')
     }
 
     const hashedPassword = userFound.password
     const isLoginSuccessful = await this._usersService.validatePassword(password, hashedPassword)
 
     if (!isLoginSuccessful) {
-      return res
-        .setHeader('X-Status-Reason', 'Login failed')
-        .status(401)
-        .render('login', { pageErrors: [{ message: 'Login failed' }] })
+      req.flash('loginValidationErrors', 'Login failed')
+      return res.redirect('login')
     }
 
     // login is successful
@@ -102,7 +92,7 @@ export class UsersController {
 
     const isDeletionSuccessful = await this._usersService.deleteUser(userId)
     if (!isDeletionSuccessful) {
-      return res.render('profile', { todo_error: 'TODO_ERROR' })
+      return res.redirect('/') // TODO: redirect and show error message
     }
 
     req.session.destroy((err) => {
