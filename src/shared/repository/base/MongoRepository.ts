@@ -1,5 +1,5 @@
 import { Model, ObjectId } from 'mongoose'
-
+import HttpError from '@src/error/HttpError'
 import { IGenericRepository } from '@src/shared/repository/interfaces/IGenericRepository'
 
 export abstract class MongoRepository<T> implements IGenericRepository<T, ObjectId> {
@@ -18,8 +18,13 @@ export abstract class MongoRepository<T> implements IGenericRepository<T, Object
   findById(id: ObjectId): Promise<T | null> {
     return this._model.findById(id).exec()
   }
-  create(item: T): Promise<T> {
-    return this._model.create(item)
+
+  async create(item: T): Promise<T> {
+    try {
+      return await this._model.create(item)
+    } catch (err) {
+      throw HttpError.InternalServerError()
+    }
   }
   update(id: ObjectId, item: Partial<T>): Promise<T | null> {
     return this._model.findOneAndUpdate({ _id: id }, item).exec()

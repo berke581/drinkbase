@@ -2,10 +2,11 @@ import path from 'path'
 import express, { urlencoded } from 'express'
 import flash from 'connect-flash'
 import { loadDBConfiguration } from './loaders/db'
+import router from './routes'
 import sessionMiddleware from './middlewares/session'
 import morganMiddleware from './middlewares/morgan'
 import { setIsAuth } from './middlewares/setIsAuth'
-import router from './routes'
+import errorHandler from './middlewares/errorHandler'
 
 loadDBConfiguration()
 
@@ -22,7 +23,7 @@ app.use(express.static('public'))
 app.use(urlencoded({ extended: true }))
 app.use(setIsAuth)
 app.use(flash())
-
-app.use('/', router)
+app.use('/', router) // this must come before error handler middleware
+app.use(errorHandler)
 
 export default app

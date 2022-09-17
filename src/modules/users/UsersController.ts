@@ -1,7 +1,12 @@
 import { Request, Response, NextFunction } from 'express'
 import { UsersService } from './UsersService'
 import { userSchema } from '@src/schemas'
+import HttpError from '@src/error/HttpError'
 import { formatJoiValidationErrors } from '@src/utils/format'
+
+// TODO: express-async-handler
+// https://stackoverflow.com/questions/63228668/typescript-express-error-handling-middleware
+// https://www.npmjs.com/package/express-async-handler
 
 // TODO: set headers and proper status codes
 export class UsersController {
@@ -15,18 +20,20 @@ export class UsersController {
     res.render('login', { formInfo: req.flash('loginValidationErrors') })
   }
 
-  async profileView(req: Request, res: Response) {
+  async profileView(req: Request, res: Response, next: NextFunction) {
     const { username } = req.session.user || {}
 
     if (!username) {
-      return res.redirect('/')
+      const err = HttpError.Unauthorized()
+      return next(err)
     }
 
+    const formInfo = req.flash('deletionErrors')
     const userInfo = await this._usersService.getUserInfo(username)
-    return res.render('profile', { userInfo })
+    return res.render('profile', { userInfo, formInfo })
   }
 
-  async registerUser(req: Request, res: Response) {
+  async registerUser(req: Request, res: Response, next: NextFunction) {
     const validation = userSchema.validate(req.body, { abortEarly: false })
 
     if (validation.error) {
@@ -46,7 +53,11 @@ export class UsersController {
       return res.redirect('register')
     }
 
-    this._usersService.registerUser(req.body)
+    try {
+      await this._usersService.registerUser(req.body)
+    } catch (err) {
+      return next(err)
+    }
     return res.redirect('login')
   }
 
@@ -80,6 +91,7 @@ export class UsersController {
       }
     })
     // https://stackoverflow.com/questions/27202075/expressjs-res-redirect-not-working-as-expected
+    // https://stackoverflow.com/questions/32728913/weird-redirect-bug-post-redirect-to-same-page-does-not-update
     return res.redirect('/')
   }
 
@@ -92,7 +104,8 @@ export class UsersController {
 
     const isDeletionSuccessful = await this._usersService.deleteUser(userId)
     if (!isDeletionSuccessful) {
-      return res.redirect('/') // TODO: redirect and show error message
+      req.flash('deletionErrors', "Account couldn't have been deleted")
+      return res.redirect(404, '/user/profile')
     }
 
     req.session.destroy((err) => {

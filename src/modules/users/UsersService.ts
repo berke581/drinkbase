@@ -34,7 +34,7 @@ export class UsersService {
 
     const hashedPassword = await this._authService.hashPassword(password)
 
-    this._usersRepository.create({ ...rest, password: hashedPassword })
+    await this._usersRepository.create({ ...rest, password: hashedPassword })
   }
 
   async validatePassword(password: string, hashedPassword: string) {

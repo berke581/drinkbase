@@ -1,4 +1,5 @@
 import express from 'express'
+import HttpError from '@src/error/HttpError'
 
 import authRoutes from './userRoutes'
 
@@ -10,8 +11,8 @@ router.get('/', (req, res) => {
 
 router.use('/user', authRoutes)
 
-router.get('*', (req, res) => {
-  res.status(404).render('404')
+router.get('*', () => {
+  throw HttpError.NotFound('Page Not Found')
 })
 
 export default router
