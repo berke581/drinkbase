@@ -1,17 +1,19 @@
 import express from 'express'
 import HttpError from '@src/error/HttpError'
 
-import authRoutes from './userRoutes'
+import userRoutes from './userRoutes'
+import postRoutes from './postRoutes'
 
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  res.render('index')
+  res.redirect('/posts/browse')
 })
 
-router.use('/user', authRoutes)
+router.use('/user', userRoutes)
+router.use('/posts', postRoutes)
 
-router.get('*', () => {
+router.all('*', () => {
   throw HttpError.NotFound('Page Not Found')
 })
 

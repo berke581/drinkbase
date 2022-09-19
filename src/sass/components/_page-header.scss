@@ -1,0 +1,25 @@
+.page-header {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-evenly;
+  align-items: center;
+
+  &__filter-section {
+    background-color: $clr-primary;
+    min-height: 60px;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    @include box-shadow-primary;
+  }
+
+  &__post-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+}

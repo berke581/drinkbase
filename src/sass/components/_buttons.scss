@@ -45,6 +45,14 @@
     @include box-shadow-primary;
   }
 
+  &--secondary {
+    background-color: $clr-background;
+
+    &:hover {
+      background: darken($clr-background, 5%);
+    }
+  }
+
   &--delete {
     color: $clr-primary;
     font-weight: bolder;

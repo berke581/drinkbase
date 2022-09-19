@@ -1,0 +1,10 @@
+mixin pageHeader
+  div.page-header
+    form.page-header__filter-section
+      input.input.input--search(type='search', placeholder="Search", name="search", id="search")
+      input.btn.btn--secondary(type="submit", value="Apply Filters")
+    if isAuth
+      a.btn(href='/posts/new')
+        span.page-header__post-container
+          i.fa.fa-plus
+          span ADD POST

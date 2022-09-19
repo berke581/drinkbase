@@ -1,15 +1,13 @@
-//- TODO: maybe separate header and menu
 append scripts
   script(type="text/javascript",src="/javascripts/logoutLink.js",defer)
 
-mixin header
-  div.header
-    div.header__icon
+mixin navbar
+  div.navbar
+    div.navbar__icon
       a(href="/")
         svg(data-src="/images/drinkbase.svg",fill="white",width="120px",height="60px",data-cache="disabled")
-    input.input.input--search(type='search', placeholder="Search")
-    div.header__menu-section
-      a.btn.btn--nav(href="/") Browse
+    div.navbar__menu-section
+      a.btn.btn--nav(href="/posts/browse") Browse
       if !isAuth
         a.btn.btn--nav(href="/user/register") Register
       if !isAuth

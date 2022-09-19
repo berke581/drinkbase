@@ -19,7 +19,7 @@ export abstract class MongoRepository<T> implements IGenericRepository<T, Object
     return this._model.findById(id).exec()
   }
 
-  async create(item: T): Promise<T> {
+  async create(item: Partial<T>): Promise<T> {
     try {
       return await this._model.create(item)
     } catch (err) {

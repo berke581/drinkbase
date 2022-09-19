@@ -1,0 +1,17 @@
+extends layouts/main-layout
+
+include /partials/page-info
+
+block variables
+  - var title = 'Create Post';
+
+block layout-content
+  div.form-container
+    header.form-container__text Create Post
+    form.form-container__form(action="/posts/new",method="post")
+        label(for="title") Title
+        input.input(type="text",placeholder="Title",name="title",id="title",required)
+        label(for="body") Body
+        input.input(type="body",placeholder="Body",name="body",id="body",required)
+        input.btn(type="submit", value="Post")
+    +pageInfo(formInfo)

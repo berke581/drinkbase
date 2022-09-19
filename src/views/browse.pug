@@ -1,0 +1,13 @@
+extends layouts/main-layout
+
+include /partials/card
+include /partials/page-header
+
+block variables
+  - var title = 'Home';
+
+block layout-content
+  +pageHeader
+  div.content-area
+    each el in data
+      +card(el.title, el.body)
