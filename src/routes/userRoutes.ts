@@ -9,6 +9,8 @@ import { UsersController } from '@src/modules/users/UsersController'
 import { AuthService } from '@src/modules/auth/AuthService'
 import { authGuard } from '@src/middlewares/authGuard'
 import { loggedInAuthGuard } from '@src/middlewares/loggedInAuthGuard'
+import { validator } from '@src/middlewares/validator'
+import { userSchema } from '@src/schemas'
 
 const usersController = new UsersController(
   new UsersService(new UsersRepository(userModel), new AuthService()),
@@ -23,7 +25,12 @@ router.get('/login', loggedInAuthGuard, usersController.loginView.bind(usersCont
 router.get('/profile', authGuard, usersController.profileView.bind(usersController))
 
 // POST
-router.post('/register', loggedInAuthGuard, usersController.registerUser.bind(usersController))
+router.post(
+  '/register',
+  loggedInAuthGuard,
+  validator(userSchema),
+  usersController.registerUser.bind(usersController),
+)
 router.post('/login', loggedInAuthGuard, usersController.loginUser.bind(usersController))
 // protected routes
 router.post('/logout', authGuard, usersController.logoutUser.bind(usersController))

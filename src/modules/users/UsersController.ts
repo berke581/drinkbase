@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { UsersService } from './UsersService'
-import { userSchema } from '@src/schemas'
 import HttpError from '@src/error/HttpError'
-import { formatJoiValidationErrors } from '@src/utils/format'
 
 // TODO: express-async-handler
 // https://stackoverflow.com/questions/63228668/typescript-express-error-handling-middleware
@@ -13,11 +11,11 @@ export class UsersController {
   constructor(private readonly _usersService: UsersService) {}
 
   registerView(req: Request, res: Response) {
-    res.render('register', { formInfo: req.flash('registerValidationErrors') })
+    res.render('register', { formInfo: req.flash('validationErrors') })
   }
 
   loginView(req: Request, res: Response) {
-    res.render('login', { formInfo: req.flash('loginValidationErrors') })
+    res.render('login', { formInfo: req.flash('validationErrors') })
   }
 
   async profileView(req: Request, res: Response, next: NextFunction) {
@@ -34,22 +32,15 @@ export class UsersController {
   }
 
   async registerUser(req: Request, res: Response, next: NextFunction) {
-    const validation = userSchema.validate(req.body, { abortEarly: false })
-
-    if (validation.error) {
-      req.flash('registerValidationErrors', formatJoiValidationErrors(validation.error))
-      return res.redirect('register')
-    }
-
     const isUsernameTaken = await this._usersService.checkIfUsernameExists(req.body.username)
     if (isUsernameTaken) {
-      req.flash('registerValidationErrors', 'Username not available')
+      req.flash('validationErrors', 'Username not available')
       return res.redirect('register')
     }
 
     const isEmailTaken = await this._usersService.checkIfEmailExists(req.body.email)
     if (isEmailTaken) {
-      req.flash('registerValidationErrors', 'E-mail not available')
+      req.flash('validationErrors', 'E-mail not available')
       return res.redirect('register')
     }
 
@@ -67,7 +58,7 @@ export class UsersController {
     const userFound = await this._usersService.checkIfUsernameExists(username)
 
     if (!userFound) {
-      req.flash('loginValidationErrors', 'User not found')
+      req.flash('validationErrors', 'User not found')
       return res.redirect('login')
     }
 
@@ -75,7 +66,7 @@ export class UsersController {
     const isLoginSuccessful = await this._usersService.validatePassword(password, hashedPassword)
 
     if (!isLoginSuccessful) {
-      req.flash('loginValidationErrors', 'Login failed')
+      req.flash('validationErrors', 'Login failed')
       return res.redirect('login')
     }
 
