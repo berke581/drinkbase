@@ -5,6 +5,7 @@ import { PostService } from '@src/modules/post/PostService'
 import { PostRepository } from '@src/modules/post/PostRepository'
 import { authGuard } from '@src/middlewares/authGuard'
 import { validator } from '@src/middlewares/validator'
+import { imageUpload } from '@src/middlewares/imageUpload'
 import { postSchema } from '@src/schemas'
 
 const postController = new PostController(new PostService(new PostRepository(postModel)))
@@ -18,6 +19,12 @@ router.get('/new', authGuard, postController.postView.bind(postController))
 
 // POST
 // protected routes
-router.post('/new', authGuard, validator(postSchema), postController.post.bind(postController))
+router.post(
+  '/new',
+  authGuard,
+  imageUpload('image'),
+  validator(postSchema),
+  postController.post.bind(postController),
+)
 
 export default router

@@ -5,5 +5,6 @@ export interface IPost {
   author: ObjectId
   title: string
   body: string
+  image: string
   created_at: Date
 }

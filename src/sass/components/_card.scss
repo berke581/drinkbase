@@ -1,20 +1,26 @@
 .card {
   width: 400px;
-  min-height: 300px;
-  max-height: 800px;
+  height: 350px;
   overflow: auto;
   @include box-shadow-primary;
   background-color: $clr-accent;
   color: white;
+  display: flex;
+  flex-direction: column;
 
   &__content {
-    padding: 0.25rem;
+    padding: 0.5rem;
+    flex: 1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.7;
   }
 
   &__header {
     background-color: $clr-secondary;
     font-weight: bold;
-    padding: 0.25rem;
+    padding: 0.5rem;
     height: 50px;
     display: flex;
     align-items: center;

@@ -16,6 +16,10 @@ export const postSchema = new Schema<IPost>(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } },
 )

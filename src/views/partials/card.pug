@@ -1,4 +1,4 @@
-mixin card(headerText, contentText)
+mixin card(headerText, backgroundImage)
   div.card
     div.card__header #{headerText}
-    div.card__content #{contentText}
+    div.card__content(style=`background-image: url(/${backgroundImage})`)

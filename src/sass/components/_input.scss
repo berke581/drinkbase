@@ -9,6 +9,10 @@
     color: $clr-placeholder;
   }
 
+  &--textarea {
+    resize: none;
+  }
+
   &--search {
     color: white;
     background: $clr-accent url(/images/search.png) no-repeat scroll 7px 7px;
@@ -25,5 +29,10 @@
       background-repeat: no-repeat;
       background-position: center;
     }
+  }
+
+  &--file {
+    color: white;
+    background-color: $clr-secondary;
   }
 }

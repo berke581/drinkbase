@@ -27,6 +27,14 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+
+    & * {
+      min-width: 50%;
+    }
+
+    &__submit {
+      margin-top: 1rem;
+    }
   }
 
   &__error-container {

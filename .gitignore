@@ -6,5 +6,8 @@ coverage
 # Stylesheets will be generated automatically from .scss
 public/stylesheets/*
 
+# Uploaded files
+uploads/**/*
+
 # Log files
 logs/**/*
