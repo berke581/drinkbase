@@ -1,8 +1,12 @@
+append scripts
+  script(type="text/javascript",src="/javascripts/pageHeader.js",defer)
+
 mixin pageHeader
   div.page-header
     form.page-header__filter-section
       input.input.input--search(type='search', placeholder="Search", name="search", id="search")
       input.btn.btn--secondary(type="submit", value="Apply Filters")
+      button.btn.btn--delete#clear-filters(type="button",disabled) Clear Filters
     if isAuth
       a.btn(href='/posts/new')
         span.page-header__post-container

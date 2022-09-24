@@ -13,7 +13,9 @@
   position: relative;
 
   &:hover {
-    background: lighten($clr-primary, 7%);
+    &:not(:disabled) {
+      background: lighten($clr-primary, 7%);
+    }
   }
 
   &:after {
@@ -34,6 +36,17 @@
     &:after {
       width: 200px;
       height: 200px;
+    }
+  }
+
+  &:disabled {
+    color: white;
+    cursor: default;
+    filter: brightness(50%);
+
+    &:after {
+      width: 0px;
+      height: 0px;
     }
   }
 
@@ -59,8 +72,10 @@
     background-color: $clr-error;
 
     &:hover {
-      color: white;
-      background: darken($clr-accent, 20%);
+      &:not(:disabled) {
+        color: white;
+        background: darken($clr-accent, 20%);
+      }
     }
   }
 

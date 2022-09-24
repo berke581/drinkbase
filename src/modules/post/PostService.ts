@@ -12,8 +12,12 @@ export class PostService {
     await this._postRepository.create(data)
   }
 
-  async listPosts(): Promise<PostDto[]> {
-    const result = await this._postRepository.find({})
-    return result.map((el) => new PostDto(el))
+  async listPosts(searchQuery = '', page = 1, pageSize = 12) {
+    const totalCount = await this._postRepository.count(searchQuery)
+    const result = await this._postRepository.findPaginated(searchQuery, page, pageSize)
+
+    const posts = result.map((el) => new PostDto(el))
+
+    return { data: posts, totalCount }
   }
 }

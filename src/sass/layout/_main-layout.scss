@@ -1,9 +1,25 @@
-.content-area {
-  color: white;
+.main-layout {
   margin: 1rem;
   padding: 1rem;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 600px;
   gap: 2rem;
+
+  &__content-area {
+    color: white;
+    margin: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+
+    &__not-found {
+      background-color: $clr-primary;
+      padding: 0.7rem;
+      @include box-shadow-primary;
+    }
+  }
 }

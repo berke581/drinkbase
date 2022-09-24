@@ -1,0 +1,9 @@
+mixin pagination(currentCount, page, isFirstPage, isLastPage)
+  form.pagination(method="GET")
+    button.btn#prev-page(type="submit",disabled=isFirstPage)
+      i.fa.fa-chevron-left.pagination__icon--left
+      span Prev
+    div #{page}
+    button.btn#next-page(type="submit",disabled=isLastPage)
+      span Next
+      i.fa.fa-chevron-right.pagination__icon--right

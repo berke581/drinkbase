@@ -2,12 +2,17 @@ extends layouts/main-layout
 
 include /partials/card
 include /partials/page-header
+include /partials/pagination
 
 block variables
   - var title = 'Home';
 
 block layout-content
   +pageHeader
-  div.content-area
-    each el in data
-      +card(el.title, el.image)
+  div.main-layout__content-area
+    if !data || data.length === 0
+      div.main-layout__content-area__not-found No results found
+    else
+      each el in data
+        +card(el.title, el.image)
+  +pagination(data.length, page, isFirstPage, isLastPage)

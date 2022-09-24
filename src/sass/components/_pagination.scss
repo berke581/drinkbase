@@ -1,0 +1,17 @@
+.pagination {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+
+  &__icon {
+    &--left {
+      margin-right: 0.5rem;
+    }
+
+    &--right {
+      margin-left: 0.5rem;
+    }
+  }
+}

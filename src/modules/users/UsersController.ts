@@ -21,6 +21,7 @@ export class UsersController {
   async profileView(req: Request, res: Response, next: NextFunction) {
     const { username } = req.session.user || {}
 
+    // TODO: use id
     if (!username) {
       const err = HttpError.Unauthorized()
       return next(err)
