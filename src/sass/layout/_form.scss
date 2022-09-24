@@ -1,46 +1,16 @@
-.form-container {
-  width: 70%;
-  background-color: $clr-accent;
-  min-height: 500px;
-  border: 1px solid $clr-secondary;
-  @include box-shadow-primary;
-  padding: 2rem;
+.form {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4rem;
+  gap: 0.5rem;
 
-  & input {
-    width: 50%;
+  & * {
+    min-width: 50%;
   }
 
-  &__text {
-    font-size: xx-large;
-    font-weight: bold;
-  }
-
-  &__form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-
-    & * {
-      min-width: 50%;
-    }
-
-    &__submit {
-      margin-top: 1rem;
-    }
-  }
-
-  &__error-container {
-    color: $clr-error;
-    background-color: $clr-secondary;
-    padding: 0.75rem;
-    @include box-shadow-primary;
+  &__submit {
+    margin-top: 1rem;
   }
 }

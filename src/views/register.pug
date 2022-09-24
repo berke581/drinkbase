@@ -6,9 +6,9 @@ block variables
   - var title = 'Register';
 
 block layout-content
-  div.form-container
-    header.form-container__text Register
-    form.form-container__form(action="/user/register",method="post")
+  div.main-layout__page-content
+    header.main-layout__page-content__header Register
+    form.form(action="/user/register",method="post")
         label(for="username") Username
         input.input(type="text",placeholder="Username",name="username",id="username",required)
         label(for="email") E-mail

@@ -8,7 +8,7 @@
   min-height: 600px;
   gap: 2rem;
 
-  &__content-area {
+  &__main-content {
     color: white;
     margin: 0.5rem;
     display: flex;
@@ -19,6 +19,35 @@
     &__not-found {
       background-color: $clr-primary;
       padding: 0.7rem;
+      @include box-shadow-primary;
+    }
+  }
+
+  &__page-content {
+    width: 70%;
+    background-color: $clr-accent;
+    min-height: 500px;
+    border: 1px solid $clr-secondary;
+    @include box-shadow-primary;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+
+    &__header {
+      padding: 1.3rem 2.5rem;
+      font-weight: bold;
+      font-size: x-large;
+      @include box-shadow-primary;
+      margin: rem;
+      background-color: $clr-primary;
+    }
+
+    &__info-container {
+      color: $clr-error;
+      background-color: $clr-secondary;
+      padding: 0.75rem;
       @include box-shadow-primary;
     }
   }

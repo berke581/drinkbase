@@ -9,9 +9,9 @@ block variables
 
 block layout-content
   +pageHeader
-  div.main-layout__content-area
+  div.main-layout__main-content
     if !data || data.length === 0
-      div.main-layout__content-area__not-found No results found
+      div.main-layout__main-content__not-found No results found
     else
       each el in data
         +card(el.title, el.image)

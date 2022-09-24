@@ -6,9 +6,9 @@ block variables
   - var title = 'Login';
 
 block layout-content
-  div.form-container
-    header.form-container__text Login
-    form.form-container__form(action="/user/login",method="post")
+  div.main-layout__page-content
+    header.main-layout__page-content__header Login
+    form.form(action="/user/login",method="post")
         label(for="username") Username
         input.input(type="text",placeholder="Username",name="username",id="username",required)
         label(for="password") Password

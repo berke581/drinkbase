@@ -11,9 +11,9 @@ append scripts
   script(type="text/javascript",src="/javascripts/deleteUser.js",defer)
 
 block layout-content
-  div.profile-area
-    header.profile-area__title My Account
-    div.profile-area__details-container
+  div.main-layout__page-content
+    header.main-layout__page-content__header My Account
+    div.profile
       if (userInfo)
         ul
           +profileItem('Username', userInfo._username)
@@ -21,7 +21,7 @@ block layout-content
           +profileItem('Created At', userInfo._createdAt, 'created_at')
       else
         div Error fetching user info.
-    div.profile-area__delete-account-section
+    div.profile__delete-account-section
       button.btn.btn--delete.btn__icon-container#delete-user
         i.fa-solid.fa-trash-can
         span Delete My Account

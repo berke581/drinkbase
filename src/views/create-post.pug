@@ -6,14 +6,14 @@ block variables
   - var title = 'Create Post';
 
 block layout-content
-  div.form-container
-    header.form-container__text Create Post
-    form.form-container__form(action="/posts/new",method="post",enctype="multipart/form-data")
+  div.main-layout__page-content
+    header.main-layout__page-content__header Create Post
+    form.form(action="/posts/new",method="post",enctype="multipart/form-data")
       label(for="title") Name
       input.input(type="text",placeholder="Name",name="title",id="title",required)
       label(for="body") Recipe
       textarea.input.input--textarea(rows="10",placeholder="Recipe",name="body",id="body",required)
       label(for="image") Thumbnail Image (400x350)
       input.input.input--file(type="file",name="image",accept="image/png, image/gif, image/jpeg")
-      input.btn.form-container__form__submit(type="submit", value="Post")
+      input.btn.form__submit(type="submit", value="Post")
     +pageInfo(formInfo)
