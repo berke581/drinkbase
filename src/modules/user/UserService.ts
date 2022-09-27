@@ -1,31 +1,31 @@
 import { ObjectId } from 'mongoose'
 import HttpError from '@src/error/HttpError'
 import { AuthService } from '@src/modules/auth/AuthService'
-import { UsersRepository } from './UsersRepository'
+import { UserRepository } from './UserRepository'
 import { IUser } from './IUser'
 import { UserDto } from './dtos/UserDto'
 
-export class UsersService {
-  private readonly _usersRepository: UsersRepository
+export class UserService {
+  private readonly _userRepository: UserRepository
   private readonly _authService: AuthService
 
-  constructor(usersRepository: UsersRepository, authService: AuthService) {
-    this._usersRepository = usersRepository
+  constructor(userRepository: UserRepository, authService: AuthService) {
+    this._userRepository = userRepository
     this._authService = authService
   }
 
   async getUserInfo(username: string): Promise<UserDto | null> {
-    const userInfo = await this._usersRepository.findByUsername(username)
+    const userInfo = await this._userRepository.findByUsername(username)
     return userInfo === null ? null : new UserDto(userInfo)
   }
 
   async checkIfUsernameExists(username: string): Promise<IUser | null> {
-    const result = await this._usersRepository.findByUsername(username)
+    const result = await this._userRepository.findByUsername(username)
     return result
   }
 
   async checkIfEmailExists(email: string): Promise<boolean> {
-    const result = await this._usersRepository.findByEmail(email)
+    const result = await this._userRepository.findByEmail(email)
     return result !== null
   }
 
@@ -34,7 +34,7 @@ export class UsersService {
 
     const hashedPassword = await this._authService.hashPassword(password)
 
-    await this._usersRepository.create({ ...rest, password: hashedPassword })
+    await this._userRepository.create({ ...rest, password: hashedPassword })
   }
 
   async validatePassword(password: string, hashedPassword: string) {
@@ -43,7 +43,7 @@ export class UsersService {
   }
 
   async deleteUser(userId: ObjectId) {
-    const deletedUser = await this._usersRepository.update(userId, { is_deleted: true })
+    const deletedUser = await this._userRepository.update(userId, { is_deleted: true })
 
     if (!deletedUser) {
       throw HttpError.NotFound('User not found')

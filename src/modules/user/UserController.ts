@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { UsersService } from './UsersService'
+import { UserService } from './UserService'
 import HttpError from '@src/error/HttpError'
 
 // TODO: express-async-handler
@@ -7,8 +7,8 @@ import HttpError from '@src/error/HttpError'
 // https://www.npmjs.com/package/express-async-handler
 
 // TODO: set headers and proper status codes
-export class UsersController {
-  constructor(private readonly _usersService: UsersService) {}
+export class UserController {
+  constructor(private readonly _userService: UserService) {}
 
   registerView(req: Request, res: Response) {
     res.render('register', { formInfo: req.flash('validationErrors') })
@@ -28,25 +28,25 @@ export class UsersController {
     }
 
     const formInfo = req.flash('deletionErrors')
-    const userInfo = await this._usersService.getUserInfo(username)
+    const userInfo = await this._userService.getUserInfo(username)
     return res.render('profile', { userInfo, formInfo })
   }
 
   async registerUser(req: Request, res: Response, next: NextFunction) {
-    const isUsernameTaken = await this._usersService.checkIfUsernameExists(req.body.username)
+    const isUsernameTaken = await this._userService.checkIfUsernameExists(req.body.username)
     if (isUsernameTaken) {
       req.flash('validationErrors', 'Username not available')
       return res.redirect('register')
     }
 
-    const isEmailTaken = await this._usersService.checkIfEmailExists(req.body.email)
+    const isEmailTaken = await this._userService.checkIfEmailExists(req.body.email)
     if (isEmailTaken) {
       req.flash('validationErrors', 'E-mail not available')
       return res.redirect('register')
     }
 
     try {
-      await this._usersService.registerUser(req.body)
+      await this._userService.registerUser(req.body)
     } catch (err) {
       return next(err)
     }
@@ -56,7 +56,7 @@ export class UsersController {
   async loginUser(req: Request, res: Response) {
     const { username, password } = req.body
 
-    const userFound = await this._usersService.checkIfUsernameExists(username)
+    const userFound = await this._userService.checkIfUsernameExists(username)
 
     if (!userFound) {
       req.flash('validationErrors', 'User not found')
@@ -64,7 +64,7 @@ export class UsersController {
     }
 
     const hashedPassword = userFound.password
-    const isLoginSuccessful = await this._usersService.validatePassword(password, hashedPassword)
+    const isLoginSuccessful = await this._userService.validatePassword(password, hashedPassword)
 
     if (!isLoginSuccessful) {
       req.flash('validationErrors', 'Login failed')
@@ -95,7 +95,7 @@ export class UsersController {
     }
 
     try {
-      await this._usersService.deleteUser(userId) // TODO: confirmation
+      await this._userService.deleteUser(userId) // TODO: confirmation
     } catch (err) {
       return next(err)
     }

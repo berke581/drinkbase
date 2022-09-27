@@ -1,39 +1,39 @@
 // TODO: maybe make this into a folder: https://stackoverflow.com/questions/43856321/separate-same-level-routes-in-separate-route-files-nodejs-express
 
 import express from 'express'
-import userModel from '@src/modules/users/userModel'
+import userModel from '@src/modules/user/userModel'
 // TODO: improve line below: https://github.com/typestack/typedi
-import { UsersRepository } from '@src/modules/users/UsersRepository'
-import { UsersService } from '@src/modules/users/UsersService'
-import { UsersController } from '@src/modules/users/UsersController'
+import { UserRepository } from '@src/modules/user/UserRepository'
+import { UserService } from '@src/modules/user/UserService'
+import { UserController } from '@src/modules/user/UserController'
 import { AuthService } from '@src/modules/auth/AuthService'
 import { authGuard } from '@src/middlewares/authGuard'
 import { loggedInAuthGuard } from '@src/middlewares/loggedInAuthGuard'
 import { validator } from '@src/middlewares/validator'
 import { userSchema } from '@src/schemas'
 
-const usersController = new UsersController(
-  new UsersService(new UsersRepository(userModel), new AuthService()),
+const userController = new UserController(
+  new UserService(new UserRepository(userModel), new AuthService()),
 )
 
 const router = express.Router()
 
 // GET
-router.get('/register', loggedInAuthGuard, usersController.registerView.bind(usersController))
-router.get('/login', loggedInAuthGuard, usersController.loginView.bind(usersController))
+router.get('/register', loggedInAuthGuard, userController.registerView.bind(userController))
+router.get('/login', loggedInAuthGuard, userController.loginView.bind(userController))
 // protected routes
-router.get('/profile', authGuard, usersController.profileView.bind(usersController))
+router.get('/profile', authGuard, userController.profileView.bind(userController))
 
 // POST
 router.post(
   '/register',
   loggedInAuthGuard,
   validator(userSchema),
-  usersController.registerUser.bind(usersController),
+  userController.registerUser.bind(userController),
 )
-router.post('/login', loggedInAuthGuard, usersController.loginUser.bind(usersController))
+router.post('/login', loggedInAuthGuard, userController.loginUser.bind(userController))
 // protected routes
-router.post('/logout', authGuard, usersController.logoutUser.bind(usersController))
-router.post('/delete', authGuard, usersController.deleteUser.bind(usersController))
+router.post('/logout', authGuard, userController.logoutUser.bind(userController))
+router.post('/delete', authGuard, userController.deleteUser.bind(userController))
 
 export default router

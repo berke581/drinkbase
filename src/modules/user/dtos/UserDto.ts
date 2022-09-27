@@ -1,4 +1,4 @@
-import { IUser } from '@src/modules/users/IUser'
+import { IUser } from '@src/modules/user/IUser'
 
 export class UserDto {
   public readonly _username: string
