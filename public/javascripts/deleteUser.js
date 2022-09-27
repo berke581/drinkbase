@@ -5,8 +5,8 @@ $(function () {
       .done(() => {
         $(window)[0].location.replace('/')
       })
-      .fail(() => {
-        $(window)[0].location.replace('/user/profile')
+      .fail((data) => {
+        document.write(data.responseText)
       })
   })
 })

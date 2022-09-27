@@ -17,6 +17,8 @@ router.get('/browse', postController.listView.bind(postController))
 //protected routes
 router.get('/new', authGuard, postController.postView.bind(postController))
 
+router.get('/:postId', postController.getView.bind(postController))
+
 // POST
 // protected routes
 router.post(

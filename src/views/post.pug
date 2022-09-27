@@ -1,0 +1,16 @@
+extends layouts/main-layout
+
+include /partials/page-info
+
+block variables
+  - var title = post.title;
+
+block layout-content
+  div.main-layout__page-layout
+    header.main-layout__page-layout__header Post Details
+    div.main-layout__page-layout__content
+      div
+        div Name: #{post.title}
+        div Recipe: #{post.body}
+        img(src=`/${post.image}`)
+      +pageInfo(formInfo)

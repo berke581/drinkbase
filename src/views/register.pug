@@ -6,16 +6,20 @@ block variables
   - var title = 'Register';
 
 block layout-content
-  div.main-layout__page-content
-    header.main-layout__page-content__header Register
-    form.form(action="/user/register",method="post")
-        label(for="username") Username
-        input.input(type="text",placeholder="Username",name="username",id="username",required)
-        label(for="email") E-mail
-        input.input(type="text",placeholder="E-mail",name="email",id="email",required)
-        label(for="password") Password
-        input.input(type="password",placeholder="Password",name="password",id="password",required)
-        label(for="repeat-password") Repeat Password
-        input.input(type="password",placeholder="Repeat Password",name="repeat_password",id="repeat-password",required)
-        input.btn(type="submit", value="Register")
-    +pageInfo(formInfo)
+  div.main-layout__page-layout
+    header.main-layout__page-layout__header Register
+    div.main-layout__page-layout__content
+      form.form(action="/user/register",method="post")
+        div.form__input-section
+          label(for="username") Username
+          input.input(type="text",placeholder="Username",name="username",id="username",required)
+          label(for="email") E-mail
+          input.input(type="text",placeholder="E-mail",name="email",id="email",required)
+          label(for="password") Password
+          input.input(type="password",placeholder="Password",name="password",id="password",required)
+          label(for="repeat-password") Repeat Password
+          input.input(type="password",placeholder="Repeat Password",name="repeat_password",id="repeat-password",required)
+        div.form__info-section
+          +pageInfo(formInfo)
+        div.form__button-section
+          input.btn(type="submit", value="Register")

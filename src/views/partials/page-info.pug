@@ -1,10 +1,10 @@
 mixin pageInfo(info)
   if info && info.length > 0
     if info.length === 1
-      div.main-layout__page-content__info-container
+      div.main-layout__page-layout__info-container
         div #{info[0]}
     else
-      div.main-layout__page-content__info-container
+      div.main-layout__page-layout__info-container
         ul
           each error in info
             li.

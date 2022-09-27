@@ -1,6 +1,6 @@
 import { IUser } from '@src/modules/users/IUser'
 
-export class GetUserDto {
+export class UserDto {
   public readonly _username: string
   public readonly _email: string
   public readonly _createdAt: Date

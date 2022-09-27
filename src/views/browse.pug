@@ -14,5 +14,6 @@ block layout-content
       div.main-layout__main-content__not-found No results found
     else
       each el in data
-        +card(el.title, el.image)
+        a(href=`/posts/${el._id}`)
+          +card(el.title, el.image)
   +pagination(data.length, page, isFirstPage, isLastPage)

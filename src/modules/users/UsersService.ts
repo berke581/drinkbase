@@ -1,9 +1,9 @@
 import { ObjectId } from 'mongoose'
-import { UsersRepository } from './UsersRepository'
+import HttpError from '@src/error/HttpError'
 import { AuthService } from '@src/modules/auth/AuthService'
+import { UsersRepository } from './UsersRepository'
 import { IUser } from './IUser'
-import { GetUserDto } from './dtos/GetUserDto'
-import { DeleteUserDto } from './dtos/DeleteUserDto'
+import { UserDto } from './dtos/UserDto'
 
 export class UsersService {
   private readonly _usersRepository: UsersRepository
@@ -14,9 +14,9 @@ export class UsersService {
     this._authService = authService
   }
 
-  async getUserInfo(username: string): Promise<GetUserDto | null> {
+  async getUserInfo(username: string): Promise<UserDto | null> {
     const userInfo = await this._usersRepository.findByUsername(username)
-    return userInfo === null ? null : new GetUserDto(userInfo)
+    return userInfo === null ? null : new UserDto(userInfo)
   }
 
   async checkIfUsernameExists(username: string): Promise<IUser | null> {
@@ -46,10 +46,7 @@ export class UsersService {
     const deletedUser = await this._usersRepository.update(userId, { is_deleted: true })
 
     if (!deletedUser) {
-      // TODO: handle errors: https://stackoverflow.com/questions/59117885/handling-errors-in-express-js-in-service-controller-layers
-      throw Error('User not found with that ID.')
+      throw HttpError.NotFound('User not found')
     }
-
-    return new DeleteUserDto(deletedUser)
   }
 }

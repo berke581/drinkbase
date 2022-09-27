@@ -11,18 +11,19 @@ append scripts
   script(type="text/javascript",src="/javascripts/deleteUser.js",defer)
 
 block layout-content
-  div.main-layout__page-content
-    header.main-layout__page-content__header My Account
-    div.profile
-      if (userInfo)
-        ul
-          +profileItem('Username', userInfo._username)
-          +profileItem('E-mail', userInfo._email)
-          +profileItem('Created At', userInfo._createdAt, 'created_at')
-      else
-        div Error fetching user info.
-    div.profile__delete-account-section
-      button.btn.btn--delete.btn__icon-container#delete-user
-        i.fa-solid.fa-trash-can
-        span Delete My Account
-    +pageInfo(formInfo)
+  div.main-layout__page-layout
+    header.main-layout__page-layout__header My Account
+    div.main-layout__page-layout__content
+      div.profile
+        if (userInfo)
+          ul
+            +profileItem('Username', userInfo._username)
+            +profileItem('E-mail', userInfo._email)
+            +profileItem('Created At', userInfo._createdAt, 'created_at')
+        else
+          div Error fetching user info.
+      div.profile__delete-account-section
+        button.btn.btn--delete.btn__icon-container#delete-user
+          i.fa-solid.fa-trash-can
+          span Delete My Account
+      +pageInfo(formInfo)

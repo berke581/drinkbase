@@ -87,17 +87,17 @@ export class UsersController {
     return res.redirect('/')
   }
 
-  async deleteUser(req: Request, res: Response) {
+  async deleteUser(req: Request, res: Response, next: NextFunction) {
     const { userId } = req.session.user || {}
 
     if (!userId) {
       return res.redirect('/')
     }
 
-    const isDeletionSuccessful = await this._usersService.deleteUser(userId)
-    if (!isDeletionSuccessful) {
-      req.flash('deletionErrors', "Account couldn't have been deleted")
-      return res.redirect(404, '/user/profile')
+    try {
+      await this._usersService.deleteUser(userId) // TODO: confirmation
+    } catch (err) {
+      return next(err)
     }
 
     req.session.destroy((err) => {

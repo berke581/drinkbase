@@ -1,16 +1,35 @@
 .form {
   width: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 0.5rem;
 
   & * {
     min-width: 50%;
   }
 
-  &__submit {
-    margin-top: 1rem;
+  &__input-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__info-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__button-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

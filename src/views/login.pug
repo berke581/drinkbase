@@ -6,12 +6,16 @@ block variables
   - var title = 'Login';
 
 block layout-content
-  div.main-layout__page-content
-    header.main-layout__page-content__header Login
-    form.form(action="/user/login",method="post")
-        label(for="username") Username
-        input.input(type="text",placeholder="Username",name="username",id="username",required)
-        label(for="password") Password
-        input.input(type="password",placeholder="Password",name="password",id="password",required)
-        input.btn(type="submit", value="Login")
-    +pageInfo(formInfo)
+  div.main-layout__page-layout
+    header.main-layout__page-layout__header Login
+    div.main-layout__page-layout__content
+      form.form(action="/user/login",method="post")
+        div.form__input-section
+          label(for="username") Username
+          input.input(type="text",placeholder="Username",name="username",id="username",required)
+          label(for="password") Password
+          input.input(type="password",placeholder="Password",name="password",id="password",required)
+        div.form__info-section
+          +pageInfo(formInfo)
+        div.form__button-section
+          input.btn(type="submit", value="Login")
