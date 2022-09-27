@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { ObjectId } from 'mongoose'
 import { PostService } from './PostService'
 import HttpError from '@src/error/HttpError'
 
@@ -12,7 +11,7 @@ type GetListRequest = Request<
 
 type GetRequest = Request<
   {
-    postId: ObjectId
+    postId: string
   },
   unknown,
   unknown,

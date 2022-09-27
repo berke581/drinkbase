@@ -1,0 +1,18 @@
+mixin postCard(post)
+  div.card
+    div.card__header
+      div #{post.title}
+      a.btn.card__header__view-link(href=`/posts/${post._id}`,target="_blank")
+        i.fa.fa-external-link
+        span View
+    div.card__content(style=`background-image: url(/${post.image})`)
+    div.card__footer
+      div by 
+        if !post.author
+          span.card__footer__author.card__footer__author--deleted deleted user
+        else
+          span.card__footer__author #{post.author.username}
+      button.btn.card__footer__favorite-btn
+        //- TODO: improve when favorites feature is implemented
+        div 22
+        i.fa-regular.fa-heart

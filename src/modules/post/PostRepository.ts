@@ -1,4 +1,4 @@
-import { Model } from 'mongoose'
+import { Model, ObjectId, Types } from 'mongoose'
 import { MongoRepository } from '@src/shared/repository/base/MongoRepository'
 import { IPost } from './IPost'
 import HttpError from '@src/error/HttpError'
@@ -16,6 +16,17 @@ export class PostRepository extends MongoRepository<IPost> {
     }
   }
 
+  public async getPost(postId: string) {
+    const validPostId = new Types.ObjectId(postId)
+    return await this._model
+      .findById(validPostId)
+      .populate<{ author: { _id: ObjectId; username: string } }>({
+        path: 'author',
+        select: 'username',
+      })
+      .exec()
+  }
+
   public async findPaginated(searchQuery: string, page: number, pageSize: number) {
     try {
       return await this._model
@@ -23,6 +34,10 @@ export class PostRepository extends MongoRepository<IPost> {
         .sort({ created_at: -1 })
         .skip((page - 1) * pageSize)
         .limit(pageSize)
+        .populate<{ author: { _id: ObjectId; username: string } }>({
+          path: 'author',
+          select: 'username',
+        })
         .exec()
     } catch (err) {
       throw HttpError.InternalServerError()

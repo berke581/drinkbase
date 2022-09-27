@@ -20,6 +20,13 @@ export const postSchema = new Schema<IPost>(
       type: String,
       required: true,
     },
+    favorited_by: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+      },
+    ],
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } },
 )

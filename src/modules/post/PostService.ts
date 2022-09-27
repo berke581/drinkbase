@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongoose'
 import { PostRepository } from './PostRepository'
 import { PostDto } from './dtos/PostDto'
 import { IPost } from './IPost'
@@ -15,12 +14,20 @@ export class PostService {
     await this._postRepository.create(data)
   }
 
-  async getPost(postId?: ObjectId) {
+  // IPost['_id']
+  async getPost(postId?: string) {
     if (!postId) {
       throw HttpError.BadRequest()
     }
 
-    return await this._postRepository.findById(postId)
+    const postInfo = await this._postRepository.getPost(postId)
+
+    if (!postInfo) {
+      return null
+    }
+
+    const post = new PostDto(postInfo)
+    return post
   }
 
   async listPosts(searchQuery = '', page = 1, pageSize = 12) {

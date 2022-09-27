@@ -6,5 +6,6 @@ export interface IPost {
   title: string
   body: string
   image: string
+  favorited_by: Array<ObjectId>
   created_at: Date
 }

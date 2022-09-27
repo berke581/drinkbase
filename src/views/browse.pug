@@ -1,6 +1,6 @@
 extends layouts/main-layout
 
-include /partials/card
+include /partials/post-card
 include /partials/page-header
 include /partials/pagination
 
@@ -14,6 +14,5 @@ block layout-content
       div.main-layout__main-content__not-found No results found
     else
       each el in data
-        a(href=`/posts/${el._id}`)
-          +card(el.title, el.image)
+        +postCard(el)
   +pagination(data.length, page, isFirstPage, isLastPage)
