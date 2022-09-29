@@ -12,12 +12,14 @@
 @import 'components/navbar';
 @import 'components/page-header';
 @import 'components/pagination';
+@import 'components/modal';
 
 @import 'layout/main-layout';
 @import 'layout/form';
 
 @import 'pages/error';
 @import 'pages/profile';
+@import 'pages/create-post';
 
 body {
   color: white;

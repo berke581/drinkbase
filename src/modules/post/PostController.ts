@@ -78,6 +78,8 @@ export class PostController {
       return next(err)
     }
 
-    return res.redirect('/')
+    return res.status(200).json({
+      message: 'Successfully created post!',
+    })
   }
 }

@@ -5,6 +5,15 @@ include /partials/page-info
 block variables
   - var title = 'Create Post';
 
+append scripts
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js",integrity="sha512-ooSWpxJsiXe6t4+PPjCgYmVfr1NS5QXJACcR/FPpsdm6kqG1FmQ2SVyg2RXeVuCRBLr0lWHnWJP6Zs1Efvxzww==",crossorigin="anonymous",referrerpolicy="no-referrer")  
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cropper/1.0.1/jquery-cropper.min.js",integrity="sha512-V8cSoC5qfk40d43a+VhrTEPf8G9dfWlEJgvLSiq2T2BmgGRmZzB8dGe7XAABQrWj3sEfrR5xjYICTY4eJr76QQ==",crossorigin="anonymous",referrerpolicy="no-referrer")
+
+  script(src="/javascripts/createPost.js")
+
+append stylesheets
+  link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css",integrity="sha512-0SPWAwpC/17yYyZ/4HSllgaK7/gg9OlVozq8K7rf3J8LvCjYEEIfzzpnA2/SSjpGIunCSD18r3UhvDcu/xncWA==",crossorigin="anonymous",referrerpolicy="no-referrer")
+
 block layout-content
   div.main-layout__page-layout
     header.main-layout__page-layout__header Create Post
@@ -15,8 +24,19 @@ block layout-content
           input.input(type="text",placeholder="Name",name="title",id="title",required)
           label(for="body") Recipe
           textarea.input.input--textarea(rows="10",placeholder="Recipe",name="body",id="body",required)
-          label(for="image") Thumbnail Image (400x350)
-          input.input.input--file(type="file",name="image",accept="image/png, image/gif, image/jpeg")
+          label(for="image") Thumbnail Image (max. 4MB)
+          input.input.input--file#file-upload(type="file",name="image",accept="image/png, image/gif, image/jpeg")
+
+          div#login-modal.modal
+            div.modal-drinkbase.modal-post
+              div.modal-drinkbase__header Crop Image
+              div.modal-post__crop-image-container
+                img#crop-image(src="#",alt="crop image")
+              div.modal-post__preview
+                div.modal-post__preview__text Preview
+                img#preview-image(src="#",alt="preview image")
+              button.btn#crop-button(type="button") Done
+
         div.form__info-section
           +pageInfo(formInfo)
         div.form__button-section

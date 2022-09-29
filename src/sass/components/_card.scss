@@ -1,6 +1,5 @@
 .card {
   width: 400px;
-  height: 350px;
   overflow: auto;
   @include box-shadow-primary;
   background-color: $clr-accent;
@@ -10,7 +9,7 @@
 
   &__content {
     padding: 0.5rem;
-    flex: 1;
+    height: 300px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -20,8 +19,8 @@
   &__header {
     background-color: $clr-secondary;
     font-weight: bold;
+    min-height: 50px;
     padding: 0.5rem;
-    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,7 +36,7 @@
 
   &__footer {
     background-color: rgba($clr-secondary, 0.8);
-    min-height: 20px;
+    min-height: 50px;
     padding: 0.5rem;
     display: flex;
     justify-content: space-between;

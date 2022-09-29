@@ -8,14 +8,6 @@ export class PostRepository extends MongoRepository<IPost> {
     super(model)
   }
 
-  public async count(searchQuery?: string) {
-    try {
-      return await this._model.count(searchQuery ? { title: new RegExp(searchQuery, 'i') } : {})
-    } catch (err) {
-      throw HttpError.InternalServerError()
-    }
-  }
-
   public async getPost(postId: string) {
     const validPostId = new Types.ObjectId(postId)
     return await this._model
@@ -39,6 +31,14 @@ export class PostRepository extends MongoRepository<IPost> {
           select: 'username',
         })
         .exec()
+    } catch (err) {
+      throw HttpError.InternalServerError()
+    }
+  }
+
+  public async count(searchQuery?: string) {
+    try {
+      return await this._model.count(searchQuery ? { title: new RegExp(searchQuery, 'i') } : {})
     } catch (err) {
       throw HttpError.InternalServerError()
     }

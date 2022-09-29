@@ -6,8 +6,14 @@ doctype html
 html
   head
     meta(charset="utf-8")
-    link(rel="shortcut icon", href="/images/favicon.ico")
-    link(rel='stylesheet', href='/stylesheets/style.css', type='text/css')
+
+    block stylesheets
+      link(rel="shortcut icon",href="/images/favicon.ico")
+      link(rel="stylesheet",href="/stylesheets/style.css",type="text/css")
+
+      link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css")
+      link(rel="stylesheet",href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css",type="text/css")
+
     meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
     meta(name="theme-color", content="#000000")
     title #{title} | DrinkBase
@@ -17,6 +23,8 @@ html
       script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js",integrity="sha512-JZSo0h5TONFYmyLMqp8k4oPhuo6yNk9mHM+FY50aBjpypfofqtEWsAgRDQm94ImLCzSaHeqNvYuD9382CEn2zw==",crossorigin="anonymous",referrerpolicy="no-referrer")
       script(type="text/javascript",src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js",async)
       script(type="text/javascript",src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js",async)
+      script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js")
+      script(type="text/javascript",src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js")
 
       script(type="text/javascript",src="/javascripts/highlightCurrentPage.js",async)
   body

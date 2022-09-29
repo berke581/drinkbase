@@ -1,0 +1,14 @@
+.modal-drinkbase {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.2rem;
+
+  &__header {
+    font-size: large;
+    color: $clr-primary;
+    border-bottom: 1px solid $clr-secondary;
+    font-weight: bold;
+    padding: 0.2rem;
+  }
+}
