@@ -105,6 +105,6 @@ export class UserController {
         throw err
       }
     })
-    return res.redirect('/')
+    return res.redirect(303, '/')
   }
 }

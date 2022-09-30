@@ -1,12 +1,15 @@
 $(function () {
   $('#delete-user').on('click', function (e) {
     e.preventDefault() // prevent default behavior
-    $.post('/user/delete')
-      .done(() => {
+    $.ajax({
+      url: '/user/delete',
+      method: 'DELETE',
+      success: function () {
         $(window)[0].location.replace('/')
-      })
-      .fail((data) => {
+      },
+      error: function (data) {
         document.write(data.responseText)
-      })
+      },
+    })
   })
 })

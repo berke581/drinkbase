@@ -34,6 +34,9 @@ router.post(
 router.post('/login', loggedInAuthGuard, userController.loginUser.bind(userController))
 // protected routes
 router.post('/logout', authGuard, userController.logoutUser.bind(userController))
-router.post('/delete', authGuard, userController.deleteUser.bind(userController))
+
+// DELETE
+//protected routes
+router.delete('/delete', authGuard, userController.deleteUser.bind(userController))
 
 export default router
