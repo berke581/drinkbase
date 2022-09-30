@@ -9,6 +9,7 @@ export class PostDto {
   public readonly author: Author
   public readonly title: string
   public readonly body: string
+  public readonly favorited_by: ObjectId[]
   public readonly image: string
 
   constructor(post: PopulateField<IPost, 'author', Author>) {
@@ -16,6 +17,7 @@ export class PostDto {
     this.author = post.author
     this.title = post.title
     this.body = post.body
+    this.favorited_by = post.favorited_by
     this.image = post.image
   }
 }

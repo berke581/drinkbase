@@ -28,5 +28,6 @@ router.post(
   validator(postSchema),
   postController.post.bind(postController),
 )
+router.post('/favorite', authGuard, postController.favorite.bind(postController))
 
 export default router

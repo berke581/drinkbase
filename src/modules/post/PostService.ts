@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongoose'
 import { PostRepository } from './PostRepository'
 import { PostDto } from './dtos/PostDto'
 import { IPost } from './IPost'
@@ -14,8 +15,7 @@ export class PostService {
     await this._postRepository.create(data)
   }
 
-  // IPost['_id']
-  async getPost(postId?: string) {
+  async getPost(postId?: ObjectId) {
     if (!postId) {
       throw HttpError.BadRequest()
     }
@@ -30,12 +30,36 @@ export class PostService {
     return post
   }
 
-  async listPosts(searchQuery = '', page = 1, pageSize = 12) {
+  async listPosts(userId?: ObjectId, searchQuery = '', page = 1, pageSize = 12) {
     const totalCount = await this._postRepository.count(searchQuery)
     const result = await this._postRepository.findPaginated(searchQuery, page, pageSize)
 
-    const posts = result.map((el) => new PostDto(el))
+    const posts = await Promise.all(
+      result.map(async (el) => {
+        const postDto = new PostDto(el)
+        const isFavorited = userId ? await this.checkIfUserFavorited(postDto._id, userId) : false
+        return { ...postDto, isFavorited }
+      }),
+    )
 
     return { data: posts, totalCount }
+  }
+
+  public async checkIfUserFavorited(postId: ObjectId, userId: ObjectId) {
+    return await this._postRepository.checkIfUserFavorited(postId, userId)
+  }
+
+  public async changeFavoritedBy(postId: ObjectId, userId: ObjectId) {
+    const userFavorited = await this.checkIfUserFavorited(postId, userId)
+
+    if (userFavorited) {
+      await this._postRepository.unFavoritePost(postId, userId)
+      // currently unfavorited
+      return false
+    } else {
+      await this._postRepository.favoritePost(postId, userId)
+      // currently favorited
+      return true
+    }
   }
 }

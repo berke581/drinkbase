@@ -7,6 +7,9 @@ include /partials/pagination
 block variables
   - var title = 'Home';
 
+append scripts
+  script(type="text/javascript",src="/javascripts/browse.js",async)
+
 block layout-content
   +pageHeader
   div.main-layout__main-content

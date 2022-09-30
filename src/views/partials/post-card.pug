@@ -12,7 +12,6 @@ mixin postCard(post)
           span.card__footer__author.card__footer__author--deleted deleted user
         else
           span.card__footer__author #{post.author.username}
-      button.btn.card__footer__favorite-btn
-        //- TODO: improve when favorites feature is implemented
-        div 22
-        i.fa-regular.fa-heart
+      button.btn.card__footer__favorite-btn.favorite-button(data-post-id=post._id)
+        div.favorited-count #{post.favorited_by ? post.favorited_by.length : 0}
+        i(class=post.isFavorited ? 'fa-solid fa-heart' : 'fa-regular fa-heart')

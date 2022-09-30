@@ -1,4 +1,4 @@
-import { Model, ObjectId, Types } from 'mongoose'
+import { Model, ObjectId } from 'mongoose'
 import { MongoRepository } from '@src/shared/repository/base/MongoRepository'
 import { IPost } from './IPost'
 import HttpError from '@src/error/HttpError'
@@ -8,10 +8,9 @@ export class PostRepository extends MongoRepository<IPost> {
     super(model)
   }
 
-  public async getPost(postId: string) {
-    const validPostId = new Types.ObjectId(postId)
+  public async getPost(postId: ObjectId) {
     return await this._model
-      .findById(validPostId)
+      .findById(postId)
       .populate<{ author: { _id: ObjectId; username: string } }>({
         path: 'author',
         select: 'username',
@@ -39,6 +38,36 @@ export class PostRepository extends MongoRepository<IPost> {
   public async count(searchQuery?: string) {
     try {
       return await this._model.count(searchQuery ? { title: new RegExp(searchQuery, 'i') } : {})
+    } catch (err) {
+      throw HttpError.InternalServerError()
+    }
+  }
+
+  public async checkIfUserFavorited(postId: ObjectId, userId: ObjectId) {
+    try {
+      const result = await this._model
+        .findOne({ _id: postId, favorited_by: { $elemMatch: { $eq: userId } } })
+        .exec()
+      return !!result
+    } catch (err) {
+      throw HttpError.InternalServerError()
+    }
+  }
+
+  public async favoritePost(postId: ObjectId, userId: ObjectId) {
+    try {
+      await this._model.findOneAndUpdate(
+        { _id: postId },
+        { $push: { favorited_by: { $each: [userId] } } },
+      )
+    } catch (err) {
+      throw HttpError.InternalServerError()
+    }
+  }
+
+  public async unFavoritePost(postId: ObjectId, userId: ObjectId) {
+    try {
+      await this._model.findOneAndUpdate({ _id: postId }, { $pull: { favorited_by: userId } })
     } catch (err) {
       throw HttpError.InternalServerError()
     }
