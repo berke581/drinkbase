@@ -1,6 +1,6 @@
 extends layouts/main-layout
 
-include /partials/profile-item
+include /partials/detail-item
 include /partials/page-info
 
 block variables
@@ -17,9 +17,9 @@ block layout-content
       div.profile
         if (userInfo)
           ul
-            +profileItem('Username', userInfo._username)
-            +profileItem('E-mail', userInfo._email)
-            +profileItem('Created At', userInfo._createdAt, 'created_at')
+            +detailItem('Username', userInfo._username)
+            +detailItem('E-mail', userInfo._email)
+            +detailItem('Created At', userInfo._createdAt, 'created_at')
         else
           div Error fetching user info.
       div.profile__delete-account-section

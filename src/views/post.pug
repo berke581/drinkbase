@@ -1,6 +1,7 @@
 extends layouts/main-layout
 
 include /partials/page-info
+include /partials/detail-item
 
 block variables
   - var title = post.title;
@@ -9,8 +10,10 @@ block layout-content
   div.main-layout__page-layout
     header.main-layout__page-layout__header Post Details
     div.main-layout__page-layout__content
-      div
-        div Name: #{post.title}
-        div Recipe: #{post.body}
-        img(src=`/${post.image}`)
+      div.detail-content
+        ul
+          +detailItem('Name', post.title)
+          +detailItem('Recipe', post.body, null, {multiline: true})
+          +detailItem('Author', post.author ? post.author.username : '--')
+        img.detail-content__image(src=`/${post.image}`)
       +pageInfo(formInfo)

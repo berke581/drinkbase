@@ -12,8 +12,20 @@
     margin: 0.5rem;
 
     &__value-container {
-      background-color: $clr-primary;
       padding: 0.1rem;
+
+      &__singleline {
+        background-color: $clr-primary;
+        padding: 0.1rem;
+      }
+
+      &__multiline {
+        margin: 0.5rem 1rem;
+        padding: 0.2rem;
+        display: pre;
+        white-space: pre-wrap;
+        background-color: $clr-primary;
+      }
     }
   }
 
