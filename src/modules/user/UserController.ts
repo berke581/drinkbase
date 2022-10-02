@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import moment from 'moment'
 import { UserService } from './UserService'
 import HttpError from '@src/error/HttpError'
 
@@ -29,7 +30,17 @@ export class UserController {
 
     const formInfo = req.flash('deletionErrors')
     const userInfo = await this._userService.getUserInfo(username)
-    return res.render('profile', { userInfo, formInfo })
+    if (!userInfo) {
+      return next(HttpError.NotFound())
+    }
+
+    const { _createdAt, ...userRest } = userInfo
+    const parsedUserInfo = {
+      _createdAt: moment(_createdAt).format('DD.MM.YYYY HH:mm'),
+      ...userRest,
+    }
+
+    return res.render('profile', { userInfo: parsedUserInfo, formInfo })
   }
 
   async registerUser(req: Request, res: Response, next: NextFunction) {
