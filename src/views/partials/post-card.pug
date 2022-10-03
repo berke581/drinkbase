@@ -5,7 +5,7 @@ mixin postCard(post)
       a.btn.card__header__view-link(href=`/posts/${post._id}`,target="_blank")
         i.fa.fa-external-link
         span View
-    div.card__content(style=`background-image: url(/${post.image})`)
+    div.card__content(style=`background-image: url(${post.image})`)
     div.card__footer
       div by 
         if !post.author
