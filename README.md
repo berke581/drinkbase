@@ -26,7 +26,7 @@ DrinkBase is a Full-Stack web application created for browsing and sharing cockt
 - MongoDB
 - TypeScript
 - JavaScript
-- JQuery
+- jQuery
 - Mongoose
 - Pug
 - Sass
