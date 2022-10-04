@@ -1,0 +1,26 @@
+@include keyframes(page-load) {
+  0% {
+    background-color: $clr-error;
+  }
+  50% {
+    background-color: $clr-accent;
+  }
+  100% {
+    background-color: $clr-error;
+  }
+}
+
+.page-loading {
+  &::before {
+    content: ' ';
+    display: block;
+    position: fixed;
+    z-index: 10;
+    height: 4px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: $clr-placeholder;
+    @include animation(page-load ease-out 1.5s infinite);
+  }
+}

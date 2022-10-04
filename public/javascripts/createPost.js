@@ -76,6 +76,7 @@ $(function () {
     croppedCanvas.toBlob((blob) => {
       formData.set('image', blob)
 
+      $('#submit-post').prop('disabled', true)
       $.ajax({
         method: 'POST',
         processData: false,
@@ -104,6 +105,9 @@ $(function () {
             positionClass: 'toast-top-right',
             progressBar: true,
           })
+        },
+        complete: function () {
+          $('#submit-post').prop('disabled', false)
         },
       })
     }, $('#file-upload')[0].files[0].type) // set file type to be the same as the initial type
