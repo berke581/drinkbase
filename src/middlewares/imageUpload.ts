@@ -44,7 +44,7 @@ function addImageInsideBody(req: Request, _res: Response, next: NextFunction) {
     return next()
   }
 
-  const fileField = { [file.fieldname]: file.path.replace(/\\/g, '/') }
+  const fileField = { [file.fieldname]: `/${file.path.replace(/\\/g, '/')}` }
   req.body = { ...req.body, ...fileField }
 
   next()

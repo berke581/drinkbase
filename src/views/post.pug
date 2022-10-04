@@ -15,5 +15,5 @@ block layout-content
           +detailItem('Name', post.title)
           +detailItem('Recipe', post.body, null, {multiline: true})
           +detailItem('Author', post.author ? post.author.username : '--')
-        img.detail-content__image(src=`/${post.image}`)
+        img.detail-content__image(src=`${post.image}`)
       +pageInfo(formInfo)
