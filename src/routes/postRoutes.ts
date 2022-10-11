@@ -1,4 +1,5 @@
 import express from 'express'
+import asyncHandler from 'express-async-handler'
 import postModel from '@src/modules/post/postModel'
 import { PostController } from '@src/modules/post/PostController'
 import { PostService } from '@src/modules/post/PostService'
@@ -13,11 +14,11 @@ const postController = new PostController(new PostService(new PostRepository(pos
 const router = express.Router()
 
 // GET
-router.get('/browse', postController.listView.bind(postController))
+router.get('/browse', asyncHandler(postController.listView.bind(postController)))
 //protected routes
-router.get('/new', authGuard, postController.postView.bind(postController))
+router.get('/new', authGuard, asyncHandler(postController.postView.bind(postController)))
 
-router.get('/:postId', postController.getView.bind(postController))
+router.get('/:postId', asyncHandler(postController.getView.bind(postController)))
 
 // POST
 // protected routes
@@ -26,8 +27,8 @@ router.post(
   authGuard,
   imageUpload('image'),
   validator(postSchema),
-  postController.post.bind(postController),
+  asyncHandler(postController.post.bind(postController)),
 )
-router.post('/favorite', authGuard, postController.favorite.bind(postController))
+router.post('/favorite', authGuard, asyncHandler(postController.favorite.bind(postController)))
 
 export default router
