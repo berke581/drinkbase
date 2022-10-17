@@ -1,4 +1,20 @@
 $(function () {
+  // TODO: write a helper function for this
+  function renderToastMessage() {
+    const msg = sessionStorage.getItem('toastMessage')
+    if (msg) {
+      toastr.success(msg, 'Success', {
+        timeOut: 3000,
+        preventDuplicates: true,
+        positionClass: 'toast-top-right',
+        progressBar: true,
+      })
+
+      sessionStorage.removeItem('toastMessage')
+    }
+  }
+  renderToastMessage()
+
   const favoritedClass = 'fa-solid fa-heart'
   const unFavoritedClass = 'fa-regular fa-heart'
 
