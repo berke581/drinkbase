@@ -32,7 +32,8 @@ $(function () {
         $(this).find('.favorited-count').text(favorited_count)
       })
       .fail((data) => {
-        toastr.error('An error has occurred.', 'Error', {
+        const response = data.responseJSON
+        toastr.error(response.message || 'An error has occurred.', 'Error', {
           timeOut: 3000,
           preventDuplicates: true,
           positionClass: 'toast-top-right',

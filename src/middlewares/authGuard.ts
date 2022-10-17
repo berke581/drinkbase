@@ -5,7 +5,7 @@ export function authGuard(req: Request, res: Response, next: NextFunction) {
   const authenticated = !!req?.session?.user
 
   if (!authenticated) {
-    throw HttpError.Unauthorized()
+    throw HttpError.Unauthorized('You are not logged in.')
   }
 
   return next()

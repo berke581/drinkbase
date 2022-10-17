@@ -64,8 +64,8 @@ export class PostController {
   }
 
   postView(req: Request, res: Response) {
-    const validationErrors = req.flash('validationErrors')
-    res.render('create-post', { formInfo: validationErrors })
+    const pageErrors = req.flash('pageErrors')
+    res.render('create-post', { formInfo: pageErrors })
   }
 
   async post(req: Request, res: Response) {

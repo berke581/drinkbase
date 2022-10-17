@@ -6,7 +6,10 @@ import router from './routes'
 import sessionMiddleware from './middlewares/session'
 import morganMiddleware from './middlewares/morgan'
 import { setIsAuth } from './middlewares/setIsAuth'
+import errorLogger from './middlewares/errorLogger'
+import clientErrorHandler from './middlewares/clientErrorHandler'
 import errorHandler from './middlewares/errorHandler'
+import failSafeErrorHandler from './middlewares/failSafeErrorHandler'
 
 loadDBConfiguration()
 
@@ -25,6 +28,9 @@ app.use(urlencoded({ extended: true }))
 app.use(setIsAuth)
 app.use(flash())
 app.use('/', router) // this must come before error handler middleware
+app.use(errorLogger)
+app.use(clientErrorHandler)
 app.use(errorHandler)
+app.use(failSafeErrorHandler)
 
 export default app

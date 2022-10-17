@@ -18,23 +18,23 @@ class HttpError extends Error {
   }
 
   static BadRequest(msg?: string) {
-    return new HttpError(400, msg || 'Bad Request')
+    return new this(400, msg || 'Bad Request')
   }
 
   static Unauthorized(msg?: string) {
-    return new HttpError(401, msg || 'Unauthorized')
+    return new this(401, msg || 'Unauthorized')
   }
 
   static Forbidden(msg?: string) {
-    return new HttpError(403, msg || 'Forbidden')
+    return new this(403, msg || 'Forbidden')
   }
 
   static NotFound(msg?: string) {
-    return new HttpError(404, msg || 'Resource Not Found')
+    return new this(404, msg || 'Resource Not Found')
   }
 
   static InternalServerError(msg?: string) {
-    return new HttpError(500, msg || 'Internal Server Error')
+    return new this(500, msg || 'Internal Server Error')
   }
 }
 

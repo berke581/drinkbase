@@ -8,11 +8,11 @@ export class UserController {
   constructor(private readonly _userService: UserService) {}
 
   registerView(req: Request, res: Response) {
-    res.render('register', { formInfo: req.flash('validationErrors') })
+    res.render('register', { formInfo: req.flash('pageErrors') })
   }
 
   loginView(req: Request, res: Response) {
-    res.render('login', { formInfo: req.flash('validationErrors') })
+    res.render('login', { formInfo: req.flash('pageErrors') })
   }
 
   async profileView(req: Request, res: Response, next: NextFunction) {
@@ -40,18 +40,6 @@ export class UserController {
   }
 
   async registerUser(req: Request, res: Response) {
-    const isUsernameTaken = await this._userService.checkIfUsernameExists(req.body.username)
-    if (isUsernameTaken) {
-      req.flash('validationErrors', 'Username not available')
-      return res.redirect('register')
-    }
-
-    const isEmailTaken = await this._userService.checkIfEmailExists(req.body.email)
-    if (isEmailTaken) {
-      req.flash('validationErrors', 'E-mail not available')
-      return res.redirect('register')
-    }
-
     await this._userService.registerUser(req.body)
 
     return res.redirect('login')
@@ -60,35 +48,21 @@ export class UserController {
   async loginUser(req: Request, res: Response) {
     const { username, password } = req.body
 
-    const userFound = await this._userService.checkIfUsernameExists(username)
-
-    if (!userFound) {
-      req.flash('validationErrors', 'User not found')
-      return res.redirect('login')
-    }
-
-    const hashedPassword = userFound.password
-    const isLoginSuccessful = await this._userService.validatePassword(password, hashedPassword)
-
-    if (!isLoginSuccessful) {
-      req.flash('validationErrors', 'Login failed')
-      return res.redirect('login')
-    }
+    const sessionInfo = await this._userService.loginUser(username, password)
 
     // login is successful
-    req.session.user = { userId: userFound._id, username }
+    req.session.user = sessionInfo
     return res.redirect('/')
   }
 
   logoutUser(req: Request, res: Response) {
     req.session.destroy((err) => {
       if (err) {
-        throw err
+        throw HttpError.InternalServerError()
       }
+
+      return res.redirect('/')
     })
-    // https://stackoverflow.com/questions/27202075/expressjs-res-redirect-not-working-as-expected
-    // https://stackoverflow.com/questions/32728913/weird-redirect-bug-post-redirect-to-same-page-does-not-update
-    return res.redirect('/')
   }
 
   async deleteUser(req: Request, res: Response) {
@@ -98,13 +72,14 @@ export class UserController {
       return res.redirect('/')
     }
 
-    await this._userService.deleteUser(userId) // TODO: confirmation
+    await this._userService.deleteUser(userId)
 
     req.session.destroy((err) => {
       if (err) {
-        throw err
+        throw HttpError.InternalServerError()
       }
+
+      return res.redirect(303, '/')
     })
-    return res.redirect(303, '/')
   }
 }
