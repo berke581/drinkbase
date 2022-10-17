@@ -7,7 +7,7 @@ export function validator(schema: Joi.ObjectSchema) {
     const validation = schema.validate(req.body, { abortEarly: false })
 
     if (validation.error) {
-      req.flash('validationErrors', formatJoiValidationErrors(validation.error))
+      req.flash('pageErrors', formatJoiValidationErrors(validation.error))
       return res.redirect('back')
     }
 

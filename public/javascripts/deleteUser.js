@@ -8,7 +8,13 @@ $(function () {
         $(window)[0].location.replace('/')
       },
       error: function (data) {
-        document.write(data.responseText)
+        const response = data.responseJSON
+        toastr.error(response.message || 'An error has occurred.', 'Error', {
+          timeOut: 3000,
+          preventDuplicates: true,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+        })
       },
     })
   })
