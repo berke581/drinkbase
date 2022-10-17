@@ -3,10 +3,6 @@ import moment from 'moment'
 import { UserService } from './UserService'
 import HttpError from '@src/error/HttpError'
 
-// TODO: express-async-handler
-// https://stackoverflow.com/questions/63228668/typescript-express-error-handling-middleware
-// https://www.npmjs.com/package/express-async-handler
-
 // TODO: set headers and proper status codes
 export class UserController {
   constructor(private readonly _userService: UserService) {}
@@ -43,7 +39,7 @@ export class UserController {
     return res.render('profile', { userInfo: parsedUserInfo, formInfo })
   }
 
-  async registerUser(req: Request, res: Response, next: NextFunction) {
+  async registerUser(req: Request, res: Response) {
     const isUsernameTaken = await this._userService.checkIfUsernameExists(req.body.username)
     if (isUsernameTaken) {
       req.flash('validationErrors', 'Username not available')
@@ -56,11 +52,8 @@ export class UserController {
       return res.redirect('register')
     }
 
-    try {
-      await this._userService.registerUser(req.body)
-    } catch (err) {
-      return next(err)
-    }
+    await this._userService.registerUser(req.body)
+
     return res.redirect('login')
   }
 
@@ -98,18 +91,14 @@ export class UserController {
     return res.redirect('/')
   }
 
-  async deleteUser(req: Request, res: Response, next: NextFunction) {
+  async deleteUser(req: Request, res: Response) {
     const { userId } = req.session.user || {}
 
     if (!userId) {
       return res.redirect('/')
     }
 
-    try {
-      await this._userService.deleteUser(userId) // TODO: confirmation
-    } catch (err) {
-      return next(err)
-    }
+    await this._userService.deleteUser(userId) // TODO: confirmation
 
     req.session.destroy((err) => {
       if (err) {

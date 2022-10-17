@@ -30,3 +30,8 @@ export function loadDBConfiguration() {
     })
   }
 }
+
+type closeDBCallback = () => void
+export function closeDBConnection(cb: closeDBCallback) {
+  mongoose.connection.close(false, cb)
+}

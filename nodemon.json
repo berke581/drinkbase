@@ -2,7 +2,7 @@
   "watch": ["src"],
   "ext": "ts,js,json",
   "ignore": ["node_modules", "coverage", "dist"],
-  "exec": "ts-node -r dotenv-safe/config -r tsconfig-paths/register --files ./src/server.ts",
+  "exec": "yarn ts-node -r dotenv-safe/config -r tsconfig-paths/register --files ./src/server.ts",
   "restartable": "rs",
   "env": {
     "NODE_ENV": "development"

@@ -86,16 +86,8 @@ $(function () {
         enctype: 'multipart/form-data',
         url: this.action,
         success: function (response) {
-          toastr.success(response.message, 'Success', {
-            timeOut: 3000,
-            preventDuplicates: true,
-            positionClass: 'toast-top-right',
-            progressBar: true,
-            // Redirect
-            onHidden: function () {
-              window.location.replace('/')
-            },
-          })
+          sessionStorage.setItem('toastMessage', response.message)
+          $(window)[0].location.replace('/')
         },
         error: function (data) {
           const response = data.responseJSON
