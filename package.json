@@ -6,7 +6,7 @@
     "build": "gulp build",
     "start:dev": "gulp start:dev",
     "start:ui": "gulp start:ui",
-    "start:prod": "gulp start:prod",
+    "start:prod": "node -r dotenv-safe/config ./dist/server.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"

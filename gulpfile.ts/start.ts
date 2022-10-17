@@ -1,5 +1,3 @@
-import process from 'process'
-import { ChildProcess, spawn } from 'child_process'
 import gulp, { watch, parallel, TaskFunction } from 'gulp'
 import dartSass from 'sass'
 import gulpSass from 'gulp-sass'
@@ -55,20 +53,4 @@ const bsInit: TaskFunction = (cb) => {
 const ui = parallel(develop, bsInit)
 ui.displayName = 'start:ui'
 
-let cp: ChildProcess
-const production: TaskFunction = () => {
-  cp = spawn('node', ['-r', 'dotenv-safe/config', './dist/server.js'], { stdio: 'inherit' })
-
-  return cp
-}
-production.displayName = 'start:prod'
-
-function handleExit() {
-  if (cp.killed) {
-    process.exit(0)
-  }
-}
-process.on('SIGTERM', handleExit)
-process.on('SIGINT', handleExit)
-
-export { develop, ui, production }
+export { develop, ui }
