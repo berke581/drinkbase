@@ -11,7 +11,6 @@
   transition: background-color 0.6s ease;
   overflow: hidden;
   position: relative;
-  box-sizing: border-box;
 
   &:hover {
     &:not(:disabled) {

@@ -1,6 +1,7 @@
 @import 'sass-utils/variables';
 @import 'sass-utils/mixins';
 
+@import 'base/reset';
 @import 'base/typography';
 @import 'base/scrollbars';
 @import 'base/font-awesome';
@@ -30,9 +31,24 @@ body {
 }
 
 hr {
-  width: 60%;
+  width: 80%;
+  overflow: visible;
+  padding: 0;
+  border: none;
+  border-top: 2px solid $clr-placeholder;
+  color: $clr-placeholder;
+  text-align: center;
   margin: 30px auto;
-  background-color: transparent;
-  border: 0 solid $clr-placeholder;
-  border-top: 1px dashed $clr-placeholder;
+  height: 0;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    position: relative;
+    top: -7px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: $clr-placeholder;
+  }
 }
