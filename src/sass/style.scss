@@ -1,11 +1,12 @@
 @import 'sass-utils/variables';
 @import 'sass-utils/mixins';
 
-@import 'base/reset';
 @import 'base/typography';
 @import 'base/scrollbars';
 @import 'base/font-awesome';
 @import 'base/page-load';
+
+@import 'overrides/editorjs';
 
 @import 'components/buttons';
 @import 'components/input';
@@ -26,4 +27,12 @@
 body {
   color: white;
   background-color: $clr-background;
+}
+
+hr {
+  width: 60%;
+  margin: 30px auto;
+  background-color: transparent;
+  border: 0 solid $clr-placeholder;
+  border-top: 1px dashed $clr-placeholder;
 }

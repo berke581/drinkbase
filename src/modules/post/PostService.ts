@@ -3,6 +3,7 @@ import { PostRepository } from './PostRepository'
 import { PostDto } from './dtos/PostDto'
 import { IPost } from './IPost'
 import HttpError from '@src/error/HttpError'
+import { sanitizeEditorJSON } from '@src/utils/sanitize'
 
 export class PostService {
   private readonly _postRepository: PostRepository
@@ -26,8 +27,10 @@ export class PostService {
       return null
     }
 
-    const post = new PostDto(postInfo)
-    return post
+    const { body: unsanitizedBody, ...rest } = new PostDto(postInfo)
+    const body = sanitizeEditorJSON(unsanitizedBody)
+
+    return { body, ...rest }
   }
 
   async listPosts(userId?: ObjectId, searchQuery = '', page = 1, pageSize = 12) {

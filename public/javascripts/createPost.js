@@ -1,4 +1,8 @@
 $(function () {
+  $.import_js('/javascripts/utils/toast.js')
+  $.import_js('/javascripts/utils/editor.js')
+  const editor = createEditor('body')
+
   let cropper
   let imageUrl
   let croppedCanvas
@@ -59,22 +63,68 @@ $(function () {
   })
 
   // POST FORM
-  $('.form').submit(function (e) {
+  $('.form').submit(async function (e) {
     e.preventDefault()
+
+    // client side form validation
+    let errorEncountered = false
+    let outputData
+    try {
+      outputData = await editor.save()
+
+      console.log(outputData)
+
+      let errorItem = null
+      if ($('#title').val() === '') {
+        $('#title').addClass('input--invalid')
+        errorEncountered = true
+        if (!errorItem) {
+          errorItem = $('#title')
+        }
+      } else {
+        $('#title').removeClass('input--invalid')
+      }
+      if (outputData.blocks.length === 0) {
+        $('#body').addClass('input--invalid')
+        errorEncountered = true
+        if (!errorItem) {
+          errorItem = $('#body')
+        }
+      } else {
+        $('#body').removeClass('input--invalid')
+      }
+      if (!$('#file-upload').val()) {
+        if (!errorEncountered) {
+          return toastError('Please select an image.')
+        }
+        errorEncountered = true
+      }
+
+      if (errorEncountered) {
+        if (errorItem) {
+          errorItem.focus()
+        }
+
+        return toastError('Please fill the form.')
+      }
+    } catch (err) {
+      return toastError('Error while saving recipe.')
+    }
+
+    if (errorEncountered) {
+      return
+    }
 
     const formData = new FormData($('.form')[0])
 
     if (!croppedCanvas) {
-      return toastr.error('Error while cropping the image.', 'Error', {
-        timeOut: 3000,
-        preventDuplicates: true,
-        positionClass: 'toast-top-right',
-        progressBar: true,
-      })
+      return toastError('Error while cropping the image.')
     }
 
     croppedCanvas.toBlob((blob) => {
       formData.set('image', blob)
+
+      formData.set('body', JSON.stringify(outputData))
 
       $('#submit-post').prop('disabled', true)
       $.ajax({
@@ -91,12 +141,12 @@ $(function () {
         },
         error: function (data) {
           const response = data.responseJSON
-          toastr.error(response.message, 'Error', {
-            timeOut: 3000,
-            preventDuplicates: true,
-            positionClass: 'toast-top-right',
-            progressBar: true,
-          })
+
+          if (response.redirect) {
+            $(window)[0].location.replace(response.redirect)
+          } else {
+            toastError(response.message)
+          }
         },
         complete: function () {
           $('#submit-post').prop('disabled', false)

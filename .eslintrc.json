@@ -40,5 +40,5 @@
       }
     }
   },
-  "ignorePatterns": ["public/javascripts/*.js"]
+  "ignorePatterns": ["public/javascripts/**/*.js"]
 }

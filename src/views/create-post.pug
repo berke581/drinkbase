@@ -8,6 +8,13 @@ block variables
 append scripts
   script(src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js",integrity="sha512-ooSWpxJsiXe6t4+PPjCgYmVfr1NS5QXJACcR/FPpsdm6kqG1FmQ2SVyg2RXeVuCRBLr0lWHnWJP6Zs1Efvxzww==",crossorigin="anonymous",referrerpolicy="no-referrer")  
   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cropper/1.0.1/jquery-cropper.min.js",integrity="sha512-V8cSoC5qfk40d43a+VhrTEPf8G9dfWlEJgvLSiq2T2BmgGRmZzB8dGe7XAABQrWj3sEfrR5xjYICTY4eJr76QQ==",crossorigin="anonymous",referrerpolicy="no-referrer")
+  script(src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest")
+  script(src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest")
+  script(src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest")
+  script(src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest")
+  script(src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest")
+  script(src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest")
+  script(src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest")
 
   script(src="/javascripts/createPost.js")
 
@@ -21,9 +28,9 @@ block layout-content
       form.form(action="/posts/new",method="post",enctype="multipart/form-data")
         div.form__input-section
           label(for="title") Name
-          input.input(type="text",placeholder="Name",name="title",id="title",required)
+          input.input(type="text",name="title",id="title")
           label(for="body") Recipe
-          textarea.input.input--textarea(rows="10",placeholder="Recipe",name="body",id="body",required)
+          div.input.input--editorjs#body
           label(for="image") Thumbnail Image (max. 4MB)
           input.input.input--file#file-upload(type="file",name="image",accept="image/png, image/gif, image/jpeg")
 

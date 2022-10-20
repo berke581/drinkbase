@@ -1,4 +1,6 @@
 $(function () {
+  $.import_js('/javascripts/utils/toast.js')
+
   $('#delete-user').on('click', function (e) {
     e.preventDefault() // prevent default behavior
     $.ajax({
@@ -9,12 +11,7 @@ $(function () {
       },
       error: function (data) {
         const response = data.responseJSON
-        toastr.error(response.message || 'An error has occurred.', 'Error', {
-          timeOut: 3000,
-          preventDuplicates: true,
-          positionClass: 'toast-top-right',
-          progressBar: true,
-        })
+        toastError(response.message)
       },
     })
   })

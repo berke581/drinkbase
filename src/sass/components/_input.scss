@@ -13,6 +13,17 @@
     resize: none;
   }
 
+  &--editorjs {
+    background-color: white;
+    box-sizing: border-box;
+
+    &:focus-within {
+      outline: 2px solid black;
+      outline-offset: -1px;
+      box-shadow: 0 0 0 2px white;
+    }
+  }
+
   &--search {
     color: white;
     background: $clr-accent url(/images/search.png) no-repeat scroll 7px 7px;
@@ -21,6 +32,7 @@
     padding-left: 35px;
 
     &::-webkit-search-cancel-button {
+      appearance: none;
       -webkit-appearance: none;
       cursor: pointer;
       height: 0.6rem;
@@ -34,5 +46,13 @@
   &--file {
     color: white;
     background-color: $clr-secondary;
+  }
+
+  &--invalid {
+    outline: 3px solid $clr-error;
+
+    &:focus-within {
+      outline: 3px solid $clr-error;
+    }
   }
 }

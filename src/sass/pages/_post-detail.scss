@@ -5,8 +5,31 @@
   flex-direction: column;
   gap: 1rem;
 
-  &__image {
-    max-width: 100%;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+
+    &__text-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__image {
+      max-width: 400px;
+      @include box-shadow-primary;
+    }
+  }
+
+  &__body {
+    padding: 0.5rem;
+    background-color: $clr-secondary;
     @include box-shadow-primary;
+
+    &__title {
+      margin: 0.5rem;
+      padding: 0.2rem;
+      border-bottom: 1px solid $clr-primary;
+    }
   }
 }
