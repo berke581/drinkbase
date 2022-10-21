@@ -15,6 +15,7 @@ block layout-content
           div.detail-content__header__text-content
             +detailItem('Recipe Name', post.title)
             +detailItem('Author', post.author ? post.author.username : '--')
+            +detailItem('Created At', post.created_at)
           div            
             img.detail-content__header__image(src=`${post.image}`)
         div.detail-content__body

@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongoose'
+import moment from 'moment'
 import { PostRepository } from './PostRepository'
 import { PostDto } from './dtos/PostDto'
 import { IPost } from './IPost'
@@ -27,10 +28,11 @@ export class PostService {
       return null
     }
 
-    const { body: unsanitizedBody, ...rest } = new PostDto(postInfo)
+    const { body: unsanitizedBody, created_at, ...rest } = new PostDto(postInfo)
     const body = sanitizeEditorJSON(unsanitizedBody)
+    const formattedCreatedAt = moment(created_at).format('DD.MM.YYYY HH:mm')
 
-    return { body, ...rest }
+    return { body, created_at: formattedCreatedAt, ...rest }
   }
 
   async listPosts(userId?: ObjectId, searchQuery = '', page = 1, pageSize = 12) {

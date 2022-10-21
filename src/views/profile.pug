@@ -16,7 +16,7 @@ block layout-content
       div.profile
         +detailItem('Username', userInfo._username)
         +detailItem('E-mail', userInfo._email)
-        +detailItem('Created At', userInfo._createdAt, 'created_at')
+        +detailItem('Created At', userInfo._createdAt)
       div.profile__delete-account-section
         button.btn.btn--delete.btn__icon-container#delete-user
           i.fa-solid.fa-trash-can
