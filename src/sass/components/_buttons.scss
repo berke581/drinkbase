@@ -1,5 +1,5 @@
 .btn {
-  color: white;
+  color: $clr-text-primary;
   background-color: $clr-primary;
   padding: 10px;
   display: flex;
@@ -40,7 +40,6 @@
   }
 
   &:disabled {
-    color: white;
     cursor: default;
     filter: brightness(50%);
 
@@ -59,22 +58,20 @@
   }
 
   &--secondary {
-    background-color: $clr-background;
+    background-color: $clr-secondary;
 
     &:hover {
-      background: darken($clr-background, 5%);
+      background: darken($clr-secondary, 5%);
     }
   }
 
   &--delete {
-    color: $clr-primary;
     font-weight: bolder;
     background-color: $clr-error;
 
     &:hover {
       &:not(:disabled) {
-        color: white;
-        background: darken($clr-accent, 20%);
+        background: darken($clr-error, 10%);
       }
     }
   }

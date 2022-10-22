@@ -1,6 +1,4 @@
 .modal-post {
-  color: $clr-primary;
-
   &__crop-image-container {
     max-height: fit-content;
   }
@@ -10,6 +8,7 @@
     text-align: center;
 
     &__text {
+      color: $clr-text-secondary;
       padding: 0.5rem;
       margin: 0.2rem;
       max-width: 100%;

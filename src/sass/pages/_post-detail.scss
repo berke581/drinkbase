@@ -22,6 +22,7 @@
   }
 
   &__body {
+    color: $clr-text-primary;
     padding: 0.5rem;
     background-color: $clr-secondary;
     @include box-shadow-primary;

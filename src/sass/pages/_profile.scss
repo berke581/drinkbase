@@ -5,6 +5,7 @@
   padding: 2em;
 
   &__row-container {
+    color: $clr-text-primary;
     background-color: $clr-secondary;
     @include box-shadow-primary;
     min-width: 150px;

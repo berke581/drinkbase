@@ -3,7 +3,6 @@
   justify-content: space-between;
   justify-items: center;
   align-items: center;
-  color: white;
   background-color: $clr-primary;
   height: 100px;
   @include box-shadow-primary;
@@ -15,7 +14,6 @@
   }
 
   &__icon {
-    color: white;
     margin-left: 20px;
   }
 }

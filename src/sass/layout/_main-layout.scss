@@ -9,7 +9,6 @@
   gap: 2rem;
 
   &__main-content {
-    color: white;
     margin: 0.5rem;
     display: flex;
     flex-wrap: wrap;
@@ -29,7 +28,6 @@
     display: flex;
     flex-direction: column;
     min-height: 500px;
-    border: 1px solid $clr-secondary;
     @include box-shadow-primary;
 
     &__header {
@@ -43,6 +41,7 @@
     }
 
     &__content {
+      color: $clr-text-secondary;
       padding: 2rem;
       flex: 1;
       display: flex;
