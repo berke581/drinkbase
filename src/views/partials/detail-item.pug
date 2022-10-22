@@ -1,9 +1,4 @@
-mixin detailItem(key, value, _id, options)
-  li.profile__row-container
+mixin detailItem(key, value)
+  div.profile__row-container
     span #{key}: 
-    if options && options.multiline
-      span.profile__row-container__value-container(id=_id)
-        div.profile__row-container__value-container__multiline #{value}
-    else
-      span.profile__row-container__value-container(id=_id)
-        span.profile__row-container__value-container__singleline #{value}
+      span.profile__row-container__value-container #{value}

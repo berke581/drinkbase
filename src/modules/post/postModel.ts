@@ -13,7 +13,7 @@ export const postSchema = new Schema<IPost>(
       required: true,
     },
     body: {
-      type: String,
+      type: Object,
       required: true,
     },
     image: {

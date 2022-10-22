@@ -11,9 +11,45 @@ block layout-content
     header.main-layout__page-layout__header Post Details
     div.main-layout__page-layout__content
       div.detail-content
-        ul
-          +detailItem('Name', post.title)
-          +detailItem('Recipe', post.body, null, {multiline: true})
-          +detailItem('Author', post.author ? post.author.username : '--')
-        img.detail-content__image(src=`${post.image}`)
+        div.detail-content__header
+          div.detail-content__header__text-content
+            +detailItem('Recipe Name', post.title)
+            +detailItem('Author', post.author ? post.author.username : '--')
+            +detailItem('Created At', post.created_at)
+          svg.detail-content__header__logo(data-src="/images/drinkbase.svg",fill="white",width="150px",data-cache="disabled")
+          div
+            img.detail-content__header__image(src=`${post.image}`)
+        div.detail-content__body
+          h2.detail-content__body__title Recipe | #{post.title}
+          div.detail-content__body__content
+            each block in post.body.blocks
+              case block.type
+                when 'paragraph'
+                  div !{block.data.text}
+                when 'header'
+                  case block.data.level
+                    when 1
+                      h1 !{block.data.text}
+                    when 2
+                      h2 !{block.data.text}
+                    when 3
+                      h3 !{block.data.text}
+                    default
+                      div Unknown error
+                when 'delimiter'
+                  hr
+                when 'list'
+                  case block.data.style
+                    when 'unordered'
+                      ul
+                        each item in block.data.items
+                          li !{item}
+                    when 'ordered'
+                      ol
+                        each item in block.data.items
+                          li !{item}
+                    default
+                      div An error has occurred displaying list
+                default
+                  div Unknown error
       +pageInfo(formInfo)

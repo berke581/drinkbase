@@ -7,19 +7,25 @@ block variables
   - var title = 'My Profile';
 
 append scripts
-  script(type="text/javascript",src="/javascripts/deleteUser.js",defer)
+  script(type="text/javascript",src="/javascripts/profile.js",defer)
 
 block layout-content
   div.main-layout__page-layout
     header.main-layout__page-layout__header My Account
     div.main-layout__page-layout__content
       div.profile
-        ul
-          +detailItem('Username', userInfo._username)
-          +detailItem('E-mail', userInfo._email)
-          +detailItem('Created At', userInfo._createdAt, 'created_at')
+        +detailItem('Username', userInfo._username)
+        +detailItem('E-mail', userInfo._email)
+        +detailItem('Created At', userInfo._createdAt)
       div.profile__delete-account-section
         button.btn.btn--delete.btn__icon-container#delete-user
           i.fa-solid.fa-trash-can
           span Delete My Account
+        div#delete-modal.modal.modal-drinkbase
+          div.modal-drinkbase__header Delete Account
+          div.profile__delete-account-section__modal-content
+            div Are you sure you want to delete your account?
+            div.profile__delete-account-section__modal-content__buttons
+              button.btn.btn--delete#confirm-delete Confirm Delete
+              button.btn.btn--secondary#cancel-delete Cancel
       +pageInfo(formInfo)

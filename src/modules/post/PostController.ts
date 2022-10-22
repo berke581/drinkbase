@@ -73,10 +73,11 @@ export class PostController {
     if (!userId) {
       throw HttpError.Unauthorized()
     }
+    const { body, ...rest } = req.body
+    const parsedBody = JSON.parse(body)
 
-    const body = { author: userId, ...req.body }
-
-    await this._postService.createPost(body)
+    const data = { author: userId, body: parsedBody, ...rest }
+    await this._postService.createPost(data)
 
     res.status(200).json({
       message: 'Successfully created post!',

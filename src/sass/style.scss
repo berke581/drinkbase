@@ -7,6 +7,8 @@
 @import 'base/font-awesome';
 @import 'base/page-load';
 
+@import 'overrides/editorjs';
+
 @import 'components/buttons';
 @import 'components/input';
 @import 'components/card';
@@ -24,6 +26,29 @@
 @import 'pages/post-detail';
 
 body {
-  color: white;
+  color: $clr-text-primary;
   background-color: $clr-background;
+}
+
+hr {
+  width: 80%;
+  overflow: visible;
+  padding: 0;
+  border: none;
+  border-top: 2px solid $clr-placeholder;
+  color: $clr-placeholder;
+  text-align: center;
+  margin: 30px auto;
+  height: 0;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    position: relative;
+    top: -7px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: $clr-placeholder;
+  }
 }

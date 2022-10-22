@@ -5,6 +5,7 @@
   padding: 2em;
 
   &__row-container {
+    color: $clr-text-primary;
     background-color: $clr-secondary;
     @include box-shadow-primary;
     min-width: 150px;
@@ -12,24 +13,26 @@
     margin: 0.5rem;
 
     &__value-container {
-      padding: 0.1rem;
-
-      &__singleline {
-        background-color: $clr-primary;
-        padding: 0.1rem;
-      }
-
-      &__multiline {
-        margin: 0.5rem 1rem;
-        padding: 0.2rem;
-        display: pre;
-        white-space: pre-wrap;
-        background-color: $clr-primary;
-      }
+      background-color: $clr-primary;
+      padding: 0.2rem;
     }
   }
 
   &__delete-account-section {
     margin: 3rem;
+
+    &__modal-content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      &__buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+    }
   }
 }

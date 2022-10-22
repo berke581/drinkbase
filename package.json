@@ -28,6 +28,7 @@
     "@types/node": "^18.7.5",
     "@types/nodemon": "^1.19.2",
     "@types/rimraf": "^3.0.2",
+    "@types/sanitize-html": "^2.6.2",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
@@ -68,6 +69,7 @@
     "pug": "^3.0.2",
     "tslib": "^2.4.0",
     "ts-node": "^10.9.1",
+    "sanitize-html": "^2.7.2",
     "uuid": "^9.0.0",
     "winston": "^3.8.2"
   }

@@ -1,0 +1,11 @@
+.ce-toolbar__actions {
+  display: flex;
+  justify-content: space-between;
+  right: 105%;
+}
+
+@media (min-width: 651px) {
+  .codex-editor--narrow .ce-toolbar__actions {
+    right: 105%;
+  }
+}

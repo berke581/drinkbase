@@ -1,19 +1,12 @@
 $(function () {
-  // TODO: write a helper function for this
-  function renderToastMessage() {
-    const msg = sessionStorage.getItem('toastMessage')
-    if (msg) {
-      toastr.success(msg, 'Success', {
-        timeOut: 3000,
-        preventDuplicates: true,
-        positionClass: 'toast-top-right',
-        progressBar: true,
-      })
+  $.import_js('/javascripts/utils/toast.js')
 
-      sessionStorage.removeItem('toastMessage')
-    }
+  // show toast messages
+  const msg = sessionStorage.getItem('toastMessage')
+  if (msg) {
+    toastSuccess(msg)
+    sessionStorage.removeItem('toastMessage')
   }
-  renderToastMessage()
 
   const favoritedClass = 'fa-solid fa-heart'
   const unFavoritedClass = 'fa-regular fa-heart'
@@ -33,12 +26,7 @@ $(function () {
       })
       .fail((data) => {
         const response = data.responseJSON
-        toastr.error(response.message || 'An error has occurred.', 'Error', {
-          timeOut: 3000,
-          preventDuplicates: true,
-          positionClass: 'toast-top-right',
-          progressBar: true,
-        })
+        toastError(response.message)
       })
   })
 })

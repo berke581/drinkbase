@@ -1,4 +1,6 @@
 $(function () {
+  $.import_js('/javascripts/utils/toast.js')
+
   $('#logout-link').on('click', function (e) {
     e.preventDefault() // cancel the link itself
     $.post(this.href)
@@ -7,12 +9,7 @@ $(function () {
       })
       .fail((data) => {
         const response = data.responseJSON
-        toastr.error(response.message || 'An error has occurred.', 'Error', {
-          timeOut: 3000,
-          preventDuplicates: true,
-          positionClass: 'toast-top-right',
-          progressBar: true,
-        })
+        toastError(response.message)
       })
   })
 })

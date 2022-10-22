@@ -3,10 +3,11 @@
   flex-direction: column;
   gap: 1rem;
   padding: 0.2rem;
+  color: $clr-text-secondary;
 
   &__header {
     font-size: large;
-    color: $clr-primary;
+    color: $clr-text-secondary;
     border-bottom: 1px solid $clr-secondary;
     font-weight: bold;
     padding: 0.2rem;

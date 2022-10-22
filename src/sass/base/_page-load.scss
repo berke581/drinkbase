@@ -1,12 +1,15 @@
 @include keyframes(page-load) {
   0% {
-    background-color: $clr-error;
+    background-color: $clr-secondary;
+    transform: translate(0vw);
   }
   50% {
-    background-color: $clr-accent;
+    background-color: $clr-background;
+    transform: translate(calc(100vw - 30vw));
   }
   100% {
-    background-color: $clr-error;
+    background-color: $clr-secondary;
+    transform: translate(0vw);
   }
 }
 
@@ -17,7 +20,7 @@
     position: fixed;
     z-index: 10;
     height: 4px;
-    width: 100%;
+    width: 30vw;
     top: 0;
     left: 0;
     background-color: $clr-placeholder;
