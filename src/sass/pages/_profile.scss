@@ -32,5 +32,19 @@
 
   &__delete-account-section {
     margin: 3rem;
+
+    &__modal-content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      &__buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+    }
   }
 }

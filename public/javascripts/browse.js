@@ -1,7 +1,7 @@
 $(function () {
   $.import_js('/javascripts/utils/toast.js')
 
-  // show toast messages from created post
+  // show toast messages
   const msg = sessionStorage.getItem('toastMessage')
   if (msg) {
     toastSuccess(msg)

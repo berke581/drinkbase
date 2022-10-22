@@ -27,7 +27,7 @@ $(function () {
         $('#crop-image').attr('src', imageUrl).width(150).height(200)
 
         // open crop image modal
-        $('#login-modal').modal({
+        $('#crop-modal').modal({
           escapeClose: false,
           clickClose: false,
         })
@@ -54,7 +54,7 @@ $(function () {
   }
 
   // USE CROPPER ON MODAL OPEN, AFTER DESTROYING IT IF THERE IS ALREADY A CROPPER INSTANCE
-  $('#login-modal').on($.modal.OPEN, function (event, modal) {
+  $('#crop-modal').on($.modal.OPEN, function (event, modal) {
     if (cropper) {
       cropper.destroy()
     }
@@ -71,8 +71,6 @@ $(function () {
     let outputData
     try {
       outputData = await editor.save()
-
-      console.log(outputData)
 
       let errorItem = null
       if ($('#title').val() === '') {
