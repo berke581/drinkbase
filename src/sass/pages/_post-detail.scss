@@ -9,24 +9,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    z-index: 1;
 
     &__text-content {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
     &__image {
+      position: relative;
+      z-index: 1;
       max-width: 300px;
       @include box-shadow-primary;
     }
 
     &__logo {
+      position: absolute;
       width: 150px;
       opacity: 0.5;
-      position: absolute;
       left: 50%;
       margin-left: -75px;
       z-index: 0;
@@ -47,6 +49,10 @@
 
     &__content {
       padding: 2rem;
+
+      & > div {
+        padding: 0.5rem;
+      }
     }
   }
 }

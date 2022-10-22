@@ -17,7 +17,7 @@ block layout-content
             +detailItem('Author', post.author ? post.author.username : '--')
             +detailItem('Created At', post.created_at)
           svg.detail-content__header__logo(data-src="/images/drinkbase.svg",fill="white",width="150px",data-cache="disabled")
-          div            
+          div
             img.detail-content__header__image(src=`${post.image}`)
         div.detail-content__body
           h2.detail-content__body__title Recipe | #{post.title}
