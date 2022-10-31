@@ -14,6 +14,7 @@ block layout-content
         div.detail-content__header
           div.detail-content__header__text-content
             +detailItem('Recipe Name', post.title)
+            +detailItem('Drink Type', post.type)
             +detailItem('Author', post.author ? post.author.username : '--')
             +detailItem('Created At', post.created_at)
           svg.detail-content__header__logo(data-src="/images/drinkbase.svg",fill="white",width="150px",data-cache="disabled")

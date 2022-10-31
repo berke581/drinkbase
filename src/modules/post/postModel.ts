@@ -8,6 +8,10 @@ export const postSchema = new Schema<IPost>(
       ref: 'User',
       required: true,
     },
+    type: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,

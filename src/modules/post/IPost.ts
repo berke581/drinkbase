@@ -14,8 +14,10 @@ export type Body = {
   }>
   version: string
 }
+export type DrinkType = 'cocktail' | 'mocktail'
 export interface IPost {
   _id: ObjectId
+  type: DrinkType
   author: ObjectId
   title: string
   body: Body
