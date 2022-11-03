@@ -2,9 +2,7 @@ import gulp, { watch, parallel, TaskFunction } from 'gulp'
 import dartSass from 'sass'
 import gulpSass from 'gulp-sass'
 import nodemon from 'nodemon'
-import bs from 'browser-sync'
 
-const browserSync = bs.create()
 const sass = gulpSass(dartSass)
 
 const buildCss: TaskFunction = (cb) => {
@@ -35,22 +33,4 @@ const startNodemon: TaskFunction = (cb) => {
 const develop = parallel(startNodemon, watchSass)
 develop.displayName = 'start:dev'
 
-const bsInit: TaskFunction = (cb) => {
-  browserSync.init(
-    {
-      ui: false,
-      files: ['**/*.css', '**/*.pug', '**/*.ts', '**/*.js'],
-      ignore: ['node_modules'],
-      proxy: 'localhost:8081',
-      port: 3000,
-      notify: false,
-      reloadDelay: 10,
-    },
-    cb,
-  )
-}
-
-const ui = parallel(develop, bsInit)
-ui.displayName = 'start:ui'
-
-export { develop, ui }
+export { develop }

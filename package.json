@@ -5,7 +5,6 @@
   "scripts": {
     "build": "gulp build",
     "start:dev": "gulp start:dev",
-    "start:ui": "gulp start:ui",
     "start:prod": "node -r dotenv-safe/config ./dist/server.js",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -13,7 +12,6 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
-    "@types/browser-sync": "^2.26.3",
     "@types/connect-flash": "^0.0.37",
     "@types/connect-mongodb-session": "^2.4.4",
     "@types/dotenv-safe": "^8.1.2",
@@ -32,7 +30,6 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
-    "browser-sync": "^2.27.10",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^3.4.2",
