@@ -1,16 +1,13 @@
 import session from 'express-session'
-// https://stackoverflow.com/questions/31337381/express-session-mongodb-store-connect-mongo-vs-connect-mongodb-session
-// https://stackoverflow.com/questions/12081741/connect-mongo-sessions-not-being-deleted-automatically
-import connectMongoDBSession from 'connect-mongodb-session'
+import connectRedis from 'connect-redis'
+import redisClient from '@src/loaders/redis'
 
 const SESSION_SECRET = process.env.SESSION_SECRET
-const MONGO_URI = process.env.MONGO_URI
 
-const MongoDBSession = connectMongoDBSession(session)
+const RedisStore = connectRedis(session)
 
-const store = new MongoDBSession({
-  uri: MONGO_URI,
-  collection: 'sessions',
+const store = new RedisStore({
+  client: redisClient,
 })
 
 export default session({
