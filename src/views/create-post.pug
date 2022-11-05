@@ -29,6 +29,14 @@ block layout-content
         div.form__input-section
           label(for="title") Name
           input.input(type="text",name="title",id="title")
+          fieldset.fieldset
+            legend Drink Type
+            div
+              input.input(type="radio",name="type",id="type-cocktail",value="cocktail",required)
+              label(for="type-cocktail") Cocktail
+            div
+              input.input(type="radio",name="type",id="type-mocktail",value="mocktail",required)
+              label(for="type-mocktail") Mocktail
           label(for="body") Recipe
           div.input.input--editorjs#body
           label(for="image") Thumbnail Image (max. 4MB)
