@@ -4,10 +4,11 @@ LABEL maintainer="Berke Yoncaci <berke5sekiz1@gmail.com>"
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY package.json yarn.lock ./
 RUN yarn install
 
 COPY . .
 RUN yarn build
 
-CMD ["yarn", "start:prod"]
+ENTRYPOINT ["yarn"]
+CMD ["start:dev"]

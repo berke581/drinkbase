@@ -12,12 +12,19 @@ services:
     environment:
       - MONGO_URI=mongodb://mongo:27017/drinkbase
       - REDIS_URI=redis://redis-cache:6379
+    volumes:
+      - ./src:/usr/src/app/src:ro
+      - ./uploads:/usr/src/app/uploads:rw
     depends_on:
       - mongo
       - redis-cache
   mongo:
     image: mongo
     restart: always
+    volumes:
+      - db-data:/data/db
   redis-cache:
     image: redis
     restart: always
+volumes:
+  db-data:
