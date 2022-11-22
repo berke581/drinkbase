@@ -33,7 +33,6 @@ DrinkBase is a Full-Stack web application created for browsing and sharing cockt
 
 - Email Verification
 - Add More Filters (drink type etc.)
-- Dockerize the Application
 
 ---
 

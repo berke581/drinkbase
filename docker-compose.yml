@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/drinkbase
+      - REDIS_URI=redis://redis-cache:6379
+    depends_on:
+      - mongo
+      - redis-cache
+  mongo:
+    image: mongo
+    restart: always
+  redis-cache:
+    image: redis
+    restart: always
